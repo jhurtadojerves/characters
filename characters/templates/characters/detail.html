@@ -13,9 +13,9 @@
                         <img src="{{ character.avatar.url }}" title="Imagen de perfil" class="img-thumbnail" id="profile-image1">
                     </div>
                     <div class="row justify-content-md-center mt-1">
-                        <div class="col-4"><a href="{{ character.character_card }}" target="_blank" title="Ficha de Personaje"><img src="http://www.harrylatino.org/public/style_images/fields/miniperfil/fichas/ficha.png" alt=""></a></div>
-                        <div class="col-4"><a href="{{ character.vault }}" target="_blank" title="Bóveda"><img src="http://www.harrylatino.org/public/style_images/fields/miniperfil/fichas/boveda.png" alt=""></a></div>
-                        <div class="col-4"><a href="{{ character.storage_vault }}" target="_blank" title="Bóveda Trastero"><img src="http://www.harrylatino.org/public/style_images/fields/miniperfil/fichas/trastero.png" alt=""></a></div>
+                        <div class="col-4"><a href="{{ character.character_card }}" target="_blank" title="Ficha de Personaje"><img src="{% static 'images/ficha.png' %}" alt=""></a></div>
+                        <div class="col-4"><a href="{{ character.vault }}" target="_blank" title="Bóveda"><img src="{% static 'images/boveda.png' %}" alt=""></a></div>
+                        <div class="col-4"><a href="{{ character.storage_vault }}" target="_blank" title="Bóveda Trastero"><img src="{% static 'images/trastero.png' %}" alt=""></a></div>
                     </div>
                 </div>
                 <div class="col-3">
