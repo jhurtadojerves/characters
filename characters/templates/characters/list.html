@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row m-3">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Líderes</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Demon Hunters</a>
+                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Knights</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Templarios</a>
+                <a class="nav-link" id="v-pills-legionario-tab" data-toggle="pill" href="#v-pills-legionario" role="tab" aria-controls="v-pills-legionario" aria-selected="false">Legionarios</a>
+                <a class="nav-link" id="v-pills-initie-tab" data-toggle="pill" href="#v-pills-initie" role="tab" aria-controls="v-pills-initie" aria-selected="false">Inities</a>
+
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <ul class="list-group list-group-flush">
+                    {% for lider in lideres %}
+                        <li class="list-group-item"> <a href="{% url 'Character:detail' lider.slug %}">{{ lider }}</a> </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <ul class="list-group list-group-flush">
+                    {% for demonhunter in demonhunters %}
+                        <li class="list-group-item"> <a href="{% url 'Character:detail' demonhunter.slug %}">{{ demonhunter }}</a> </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                <ul class="list-group list-group-flush">
+                    {% for knight in knights %}
+                        <li class="list-group-item"> <a href="{% url 'Character:detail' knight.slug %}">{{ knight }}</a> </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                <ul class="list-group list-group-flush">
+                    {% for templario in templarios %}
+                        <li class="list-group-item"> <a href="{% url 'Character:detail' lider.templario %}">{{ templario }}</a> </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="v-pills-legionario" role="tabpanel" aria-labelledby="v-pills-legionario-tab">
+                <ul class="list-group list-group-flush">
+                    {% for legionario in legionarios %}
+                        <li class="list-group-item"> <a href="{% url 'Character:detail' legionario.slug %}">{{ legionario }}</a> </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="v-pills-initie" role="tabpanel" aria-labelledby="v-pills-initie-tab">
+                <ul class="list-group list-group-flush">
+                    {% for initie in inities %}
+                        <li class="list-group-item"> <a href="{% url 'Character:detail' initie.slug %}">{{ initie }}</a> </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+        <a class="btn btn-secondary" href="{% url 'Character:create' %}" role="button">Crear Nuevo Personaje</a>
+    {% endif %}
+{% endblock content %}

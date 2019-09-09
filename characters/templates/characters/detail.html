@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">    
+{% endblock css %}
+{% block content %}
+<br>
+    <div class="card">
+        <div class="card-body">
+            <div class="row m-3">
+                <div class="col-2">
+                    <div class="row justify-content-md-center">
+                        <img src="{{ character.avatar.url }}" title="Imagen de perfil" class="img-thumbnail" id="profile-image1">
+                    </div>
+                    <div class="row justify-content-md-center mt-1">
+                        <div class="col-4"><a href="{{ character.character_card }}" target="_blank" title="Ficha de Personaje"><img src="http://www.harrylatino.org/public/style_images/fields/miniperfil/fichas/ficha.png" alt=""></a></div>
+                        <div class="col-4"><a href="{{ character.vault }}" target="_blank" title="Bóveda"><img src="http://www.harrylatino.org/public/style_images/fields/miniperfil/fichas/boveda.png" alt=""></a></div>
+                        <div class="col-4"><a href="{{ character.storage_vault }}" target="_blank" title="Bóveda Trastero"><img src="http://www.harrylatino.org/public/style_images/fields/miniperfil/fichas/trastero.png" alt=""></a></div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <h4 style="color:#00b1b1;">{{ character.name }}</h4>
+                    <span><p>{{ character.get_range_display }}</p></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Orden del Fénix</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Información General</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Información Adicional</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Rango en el Bando</div>
+                                        <div class="col text-justify text-break">{{ character.get_range_display }}</div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Patronus</div>
+                                        <div class="col text-justify text-break">{{ character.patronus }}</div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Varita Mágica</div>
+                                        <div class="col text-justify text-break">{{ character.wand }}</div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Nombre del Personaje</div>
+                                        <div class="col text-justify text-break"><a href="{{ character.secondary_characters|default_if_none:'#' }}" target="_blank">{{ character.name }}</a></div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Características del Personaje</div>
+                                        <div class="col text-justify text-break">{{ character.characteristics }}</div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Empleo en el CMI</div>
+                                        <div class="col text-justify text-break">{{ character.job }}</div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Información sobre el empleo</div>
+                                        <div class="col text-justify text-break">{{ character.job_description }}</div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Personajes Secundarios</div>
+                                        <div class="col text-justify text-break"><a href="{{ character.secondary_characters|default_if_none:'#' }}">{{ character.secondary_characters }}</a></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Nick</div>
+                                        <div class="col text-justify text-break">{{ character.nick }}</div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-2 font-weight-bold">Nombre del usuario</div>
+                                        <div class="col text-justify text-break">{{ character.user }}</div>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if user.is_authenticated %}
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-secondary" href="{% url 'Character:update' character.slug %}" role="button">Editar</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
