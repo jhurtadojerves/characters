@@ -3,7 +3,7 @@ import os
 
 DEBUG = os.environ.get("DJANGO_DEBUG")
 
-ALLOW_HOSTS = [os.environ.get("ALLOWED_HOST")]
+ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOST")]
 
 DATABASES = {
     "default": {
