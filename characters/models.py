@@ -2,7 +2,8 @@
 from django.db import models
 from django.utils.text import slugify
 
-# Create your models here.
+# Local
+from business.models import Business
 
 
 class Character(models.Model):
@@ -65,6 +66,8 @@ class Character(models.Model):
         verbose_name="Link a la Ficha de Personaje")
     vault = models.URLField("Link a la Bóveda")
     storage_vault = models.URLField("Link a la Bóveda Trastero")
+
+    business = models.ManyToManyField(Business, related_name='characters', blank=True)
 
     slug = models.SlugField(max_length=140)
 

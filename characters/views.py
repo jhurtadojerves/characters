@@ -38,11 +38,12 @@ class CharacterDetail(DetailView):
 class CharacterCreate(LoginRequiredMixin, CreateView):
     model = Character
     form_class = CharacterForm
-    template_name = 'characters/create.html'
+    template_name = 'characters/form.html'
 
     def form_valid(self, form):
-        form.save()
-        return redirect("Character:list")
+        instance = form.save(commit=False)
+        instance.save()
+        return redirect("Character:detail", slug=instance.slug)
 
     def handle_no_permission(self):
         messages.error(
@@ -53,5 +54,5 @@ class CharacterCreate(LoginRequiredMixin, CreateView):
 class CharacterUpdate(LoginRequiredMixin, UpdateView):
     model = Character
     form_class = CharacterForm
-    template_name = 'characters/update.html'
+    template_name = 'characters/form.html'
     success_url = '../'

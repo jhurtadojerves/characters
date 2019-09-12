@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url="/personaje/")),
     path('personaje/', include('characters.urls')),
+    path('negocio/', include('business.urls')),
     path(route="logout/", view=LogoutView.as_view(), name="logout"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
