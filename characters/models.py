@@ -36,6 +36,7 @@ class Character(models.Model):
         default='1',
         verbose_name="Rango en el Bando"
     )
+    is_lieutenant = models.BooleanField(default=False, verbose_name="¿Es Lugar Teniente?")
     user = models.CharField(
         max_length=128,
         blank=True,

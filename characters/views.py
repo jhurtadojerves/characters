@@ -1,6 +1,7 @@
 # Core imports
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import (
     CreateView,
@@ -21,12 +22,13 @@ class CharacterList(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         characters = Character.objects.all()
+        context["lideres"] = characters.filter(Q(range=6) | Q(is_lieutenant=True))
+        characters = characters.exclude(is_lieutenant=True)
         context["inities"] = characters.filter(range=1)
         context["legionarios"] = characters.filter(range=2)
         context["templarios"] = characters.filter(range=3)
         context["knights"] = characters.filter(range=4)
         context["demonhunters"] = characters.filter(range=5)
-        context["lideres"] = characters.filter(range=6)
         return context
 
 
