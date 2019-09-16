@@ -26,6 +26,7 @@ urlpatterns = [
     path('personaje/', include('characters.urls')),
     path('negocio/', include('business.urls')),
     path(route="logout/", view=LogoutView.as_view(), name="logout"),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

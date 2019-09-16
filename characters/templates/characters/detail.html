@@ -110,4 +110,6 @@
   </div>
 {% endblock content %}
 
-
+{% block title %}
+  {{ block.super }} - {{ character.name }}
+{% endblock %}

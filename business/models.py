@@ -1,8 +1,9 @@
+# Local imports
 from django.db import models
 from django.utils.text import slugify
 
-# Create your models here.
-
+# Third party
+from ckeditor.fields import RichTextField
 
 class Business(models.Model):
     RUBROS = (
@@ -22,7 +23,7 @@ class Business(models.Model):
         default='header/default.jpg'
     )
     name = models.CharField(max_length=128)
-    description = models.TextField()
+    description = RichTextField()
     category = models.CharField(choices=RUBROS, max_length=1, default='1')
     register = models.URLField()
     topic = models.URLField()

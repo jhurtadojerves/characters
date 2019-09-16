@@ -1,0 +1,34 @@
+{% extends 'business/business.html' %}
+{% block title %}
+  {{ block.super }} - {{ business.name }}
+{% endblock %}
+{% block content %}
+  <div class="container-fluid">
+  <div class="row  pt-2">
+    <div class="col">
+      <h4 class="text-center m-auto">{{ business.name }}{% if user.is_authenticated %}
+        <a href="{% url 'Business:update' business.slug %}" role="button"><i
+            class="fas fa-edit"></i></a>
+      {% endif %}</h4>
+      <hr>
+    <p>
+      <b>Link al topic de registro: </b> <a href="{{ business.register }}">{{ business.register }}</a>
+      <hr>
+      <b>Link al topic de rol: </b> <a href="{{ business.topic }}">{{ business.topic }}</a>
+      <hr>
+      <b>Link a la bóveda: </b> <a href="{{ business.vault }}">{{ business.vault }}</a>
+      <hr>
+
+    </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      {% autoescape off %}{{ business.description }}{% endautoescape %}
+    </div>
+  </div>
+
+  </div>
+
+
+{% endblock content %}

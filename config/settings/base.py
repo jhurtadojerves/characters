@@ -39,7 +39,7 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 )
 
-THIRD_PARTY_APPS = ('crispy_forms',)
+THIRD_PARTY_APPS = ('crispy_forms', 'ckeditor')
 
 LOCAL_APPS = ("business", "characters", "families")
 
@@ -140,5 +140,14 @@ STATICFILES_FINDERS = [
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join("media")
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# CKEDITOR
+CKEDITOR_UPLOAD_PATH = f'{MEDIA_ROOT}/ckeditor'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+
+    },
+}
+

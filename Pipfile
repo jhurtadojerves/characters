@@ -11,9 +11,9 @@ django-debug-toolbar = "*"
 
 [packages]
 django = "*"
-rest-framework = "*"
 pillow = "*"
 django-crispy-forms = "*"
+django-ckeditor = "*"
 
 [requires]
 python_version = "3.7"
