@@ -1,7 +1,8 @@
-# Core imports
+# Django
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import (
     CreateView,
@@ -10,6 +11,10 @@ from django.views.generic import (
     DetailView,
     TemplateView
 )
+
+# Third party integration
+from bs4 import BeautifulSoup
+import requests
 
 # Local imports
 from characters.models import Character
@@ -58,3 +63,40 @@ class CharacterUpdate(LoginRequiredMixin, UpdateView):
     form_class = CharacterForm
     template_name = 'characters/form.html'
     success_url = '../'
+
+
+class GetProfileInformation(TemplateView):
+    """Get profile information"""
+
+    def get(self, request, *args, **kwargs):
+        url = f"http://www.harrylatino.org/user/{request.GET.get('id')}/"
+        response = requests.get(url, allow_redirects=True)
+        data = dict()
+
+        if response.status_code == 200:
+            html = BeautifulSoup(response.text)
+            spans = html.find_all("span", { "class": "row_data" })
+            messages = spans[1]
+            galleons = spans[10]
+            books = spans[15]
+            graduate = spans[20]
+            objects = spans[22]
+            creatures = spans[23]
+            knowledge = spans[28]
+            skills = spans[29]
+            medals = spans[30]
+
+            data.update(
+                {
+                    "messages":  f"{messages.text}".replace(".", ""),
+                    "galleons":  galleons.text.strip(),
+                    "books":     books.text.strip(),
+                    "graduate":  graduate.text.strip(),
+                    "objects":   objects.text.strip(),
+                    "knowledge": len(f"{knowledge.text}".strip().split("\r\n")),
+                    "medals":    medals.text.strip(),
+                    "skills":    len(f"{skills.text}".strip().split("\r\n")),
+                }
+            )
+
+        return JsonResponse(data)
