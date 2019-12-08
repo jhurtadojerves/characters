@@ -93,6 +93,7 @@ class GetProfileInformation(TemplateView):
                     "books":     books.text.strip(),
                     "graduate":  graduate.text.strip(),
                     "objects":   objects.text.strip(),
+                    "creatures": creatures.text.strip(),
                     "knowledge": len(f"{knowledge.text}".strip().split("\r\n")),
                     "medals":    medals.text.strip(),
                     "skills":    len(f"{skills.text}".strip().split("\r\n")),
