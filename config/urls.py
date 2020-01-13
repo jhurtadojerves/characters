@@ -22,13 +22,12 @@ from django.views.generic.base import RedirectView
 from characters.views import GetProfileInformation
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(url="/personaje/")),
-    path('personaje/', include('characters.urls')),
-    path('negocio/', include('business.urls')),
-    path('obtener-datos/', view=GetProfileInformation.as_view(), name="getData"),
+    path("admin/", admin.site.urls),
+    path("", RedirectView.as_view(url="/personaje/")),
+    path("personaje/", include("characters.urls")),
+    path("awards/", include("awards.urls")),
+    path("negocio/", include("business.urls")),
+    path("obtener-datos/", view=GetProfileInformation.as_view(), name="getData"),
     path(route="logout/", view=LogoutView.as_view(), name="logout"),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-
+    path("ckeditor/", include("ckeditor_uploader.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

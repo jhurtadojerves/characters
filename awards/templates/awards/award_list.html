@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Orden del Fénix - Premios
+{% endblock %}
+
+{% block content %}
+  <div class="row m-3">
+    <ul class="list-group list-group-flush">
+      {% for award in awards %}
+        <li class="list-group-item"><a href=" {% url 'Award:detail' award.slug %} " >{{ award }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% if user.is_authenticated %}
+    <a class="btn btn-secondary" href="{% url 'Business:create' %}" role="button">Crear Nuevo Negocio</a>
+  {% endif %}
+{% endblock content %}

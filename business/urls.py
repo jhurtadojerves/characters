@@ -1,4 +1,6 @@
-# Core imports
+"""Urls to business apps"""
+
+# Django imports
 from django.urls import path
 
 # Local imports
@@ -17,5 +19,4 @@ urlpatterns = [
     path(route="create/", view=BusinessCreateView.as_view(), name="create"),
     path(route="<slug:slug>/", view=BusinessDetailView.as_view(), name="detail"),
     path(route="<slug:slug>/editar", view=BusinessUpdateView.as_view(), name="update"),
-
 ]
