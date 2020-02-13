@@ -16,7 +16,7 @@ django-crispy-forms = "*"
 django-ckeditor = "*"
 beautifulsoup4 = "*"
 requests = "*"
-install = "*"
+django-admin-index = "*"
 
 [requires]
 python_version = "3.7"

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_APPS = (
+    "django_admin_index",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -66,6 +67,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
+                "django_admin_index.context_processors.dashboard",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
