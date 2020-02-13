@@ -37,11 +37,14 @@ class CategoryDetailView(FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         self.object = self.get_object()
         context = super().get_context_data(**kwargs)
-        voting = Voting.objects.filter(user=self.request.user, category=self.object)
-        if voting.exists():
-            context.update(
-                {"voting": True, "options": voting.get().selected_options.all()}
-            )
+        try:
+            voting = Voting.objects.filter(user=self.request.user, category=self.object)
+            if voting.exists():
+                context.update(
+                    {"voting": True, "options": voting.get().selected_options.all()}
+                )
+        except Exception as error:
+            pass
         return context
 
     def get_form_kwargs(self):
