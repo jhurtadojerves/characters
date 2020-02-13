@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}
-  Orden del Fénix - {{ award.name }}
+Orden del Fénix - {{ award.name }}
 {% endblock %}
 {% block content %}
-  <div class="container-fluid">
+<div class="container-fluid">
   <div class="row  pt-2">
     <div class="col">
       <h4 class="text-center m-auto">{{ award.name }}</h4>
@@ -12,28 +12,26 @@
       <br><br>
       <div class="row row-cols-1 row-cols-md-3">
         {% for category in award.categories.all %}
-          {% if category.status %}
-            <div class="col mb-4">
-              <div class="card border-secondary h-100">
-                <div class="card-header">{{category.name}}</div>
-                <div class="card-body text-secondary">
-                  <p class="card-text">{{category.description}}</p>
-                  <a href="#" class="btn btn-primary">Votar</a>
-                </div>
-              </div>
+        {% if category.status %}
+        <div class="col mb-4">
+          <div class="card border-secondary h-100">
+            <div class="card-header">{{category.name}}
+                                     {% if category.votes.all and request.user.votes.all %}
+              <span class="badge badge-success">Ya votaste</span>
+                                     {% endif %}
             </div>
-          {% endif %}
+            <div class="card-body text-secondary">
+              <p class="card-text">{{category.description}}</p>
+              <a href="{% url 'Award:category-detail' award.slug category.slug %}" class="btn btn-primary">Nominados</a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
         {% endfor %}
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      {% autoescape off %}{{ business.description }}{% endautoescape %}
-    </div>
-  </div>
-
-  </div>
+</div>
 
 
 {% endblock content %}

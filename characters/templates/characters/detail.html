@@ -11,10 +11,7 @@
         <div class="col-12 col-lg-2">
           <div class="row">
             <div class="col-12 col-lg-12">
-              <h6 style="color:#00b1b1;">{{ character.name }} {% if user.is_authenticated %}
-                <a href="{% url 'Character:update' character.slug %}" role="button"><i
-                    class="fas fa-edit"></i></a>
-              {% endif %}</h6>
+              <h6 style="color:#00b1b1;">{{ character.name }}</h6>
             </div>
             <div class="col-auto col-lg-12">
               <img src="{{ character.avatar.url }}" title="Imagen de perfil" class="img-thumbnail" id="profile-image1">

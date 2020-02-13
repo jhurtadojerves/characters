@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{{ category.name }} - {{ category.award.name }}
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row  pt-2">
+    <div class="col">
+      <h4 class="text-center m-auto">{{ award.name }}</h4>
+      <hr>
+      <h5 class="text-center m-auto mb-4">Participantes</h5>
+      <br><br>
+      <div class="row row-cols-1 row-cols-md-3">
+        {% for category in award.categories.all %}
+        {% if category.status %}
+        <div class="col mb-4">
+          <div class="card border-secondary h-100">
+            <div class="card-header">{{category.name}}</div>
+            <div class="card-body text-secondary">
+              <p class="card-text">{{category.description}}</p>
+              <a href="#" class="btn btn-primary">Votar</a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col">
+      <ul class="list-group">
+        {% for user in category.participants.all %}
+        <li class="list-group-item">{{user.name}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% if not voting %}
+    <div class="row">
+      <div class="col">
+        <h5 class="text-center m-auto mb-5">Selecciona {{ category.max_options }} opciones</h5>
+        <form action="" method="POST" class="uniForm">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-success mt-5">Success</button>
+        </form>
+      </div>
+  </div>
+  {% else %}
+  <div class="row">
+    <div class="col">
+      <h5 class="text-center m-auto mb-5">Votaste por:</h5>
+      <ul>
+        {% for option in options %}
+          <li>{{ option.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#id_selected_options').select2({
+      width: "100%",
+      maximumSelectionLength: "{{ category.max_options }}"
+    });
+  });
+</script>
+{% endblock %}

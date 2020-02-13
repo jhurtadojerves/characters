@@ -9,7 +9,11 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'Business:list' %}">Negocios <span class="sr-only"></span></a>
       </li>
+
       {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'Award:list' %}">Premios <span class="sr-only"></span></a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión <span class="sr-only"></span></a>
         </li>

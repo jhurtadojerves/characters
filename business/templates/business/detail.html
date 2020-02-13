@@ -6,10 +6,7 @@
   <div class="container-fluid">
   <div class="row  pt-2">
     <div class="col">
-      <h4 class="text-center m-auto">{{ business.name }}{% if user.is_authenticated %}
-        <a href="{% url 'Business:update' business.slug %}" role="button"><i
-            class="fas fa-edit"></i></a>
-      {% endif %}</h4>
+      <h4 class="text-center m-auto">{{ business.name }}</h4>
       <hr>
     <p>
       <b>Link al topic de registro: </b> <a href="{{ business.register }}">{{ business.register }}</a>
