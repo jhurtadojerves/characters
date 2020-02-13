@@ -1,7 +1,7 @@
 from .base import *
 import os
 
-DEBUG = os.environ.get("DJANGO_DEBUG")
+DEBUG = False
 
 ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOST")]
 
