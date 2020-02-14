@@ -5,8 +5,10 @@ from uuid import uuid4
 
 # Django
 from django.db import models
+from django.db.models.signals import post_save
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+
 
 # Local
 from characters.models import Character
@@ -21,10 +23,6 @@ class Award(models.Model):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):  # new
-        self.slug = slugify(self.name)
-        return super().save(*args, **kwargs)
 
 
 class Category(models.Model):
@@ -44,10 +42,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):  # new
-        self.slug = slugify(self.name)
-        return super().save(*args, **kwargs)
 
 
 class AccessToken(models.Model):
@@ -70,3 +64,19 @@ class Voting(models.Model):
 
     class Meta:
         unique_together = ("user", "category")
+
+
+def create_unique_slug(sender, instance, created, **kwargs):
+    """Change slug if exists"""
+    if created:
+        instance.slug = slugify(f"{instance.pk} {instance.name}")
+        instance.save()
+    else:
+        slug = instance.slug
+        instance.slug = slugify(f"{instance.pk} {instance.name}")
+        if not slug == instance.slug:
+            instance.save()
+
+
+post_save.connect(create_unique_slug, Award)
+post_save.connect(create_unique_slug, Category)
