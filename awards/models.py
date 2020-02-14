@@ -67,7 +67,7 @@ class Voting(models.Model):
 
 
 def create_unique_slug(sender, instance, created, **kwargs):
-    """Change slug if exists"""
+    """Create and update slug"""
     if created:
         instance.slug = slugify(f"{instance.pk} {instance.name}")
         instance.save()

@@ -16,12 +16,15 @@ class CategoryAdmin(admin.ModelAdmin):
     """"""
 
     list_display = (
+        "id",
         "name",
         "description",
         "award",
         "status",
         "max_options",
+        "slug",
     )
+    list_editable = ("name", "status", "max_options")
     filter_horizontal = ("participants",)
 
 
