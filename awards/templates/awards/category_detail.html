@@ -14,8 +14,6 @@
 <div class="container-fluid">
   <div class="row  pt-2">
     <div class="col">
-      <h4 class="text-center m-auto">{{ award.name }}</h4>
-      <hr>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
@@ -25,6 +23,8 @@
           </li>
         </ul>
       </nav>
+      <h4 class="text-center m-auto">{{ category.name }} - {{ category.award }}</h4>
+      <hr>
       <h5 class="text-center m-auto mb-4">Participantes</h5>
       <br><br>
       <div class="row row-cols-1 row-cols-md-3">
