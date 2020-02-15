@@ -9,4 +9,4 @@ class CharacterAdmin(admin.ModelAdmin):
     list_editable = ("user",)
 
 
-admin.site.register(Character)
+admin.site.register(Character, CharacterAdmin)
