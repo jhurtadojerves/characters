@@ -2,13 +2,13 @@
 
 # python
 from uuid import uuid4
+from django.shortcuts import reverse
 
 # Django
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.text import slugify
-from django.contrib.auth.models import User
-
 
 # Local
 from characters.models import Character
@@ -49,6 +49,11 @@ class AccessToken(models.Model):
 
     token = models.UUIDField(unique=True, default=uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def get_url(self):
+        return (
+            f"https://manifiesto.ordendelfenix.xyz{reverse('login', args=[self.token])}"
+        )
 
 
 class Voting(models.Model):

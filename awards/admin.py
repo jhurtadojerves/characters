@@ -31,9 +31,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class AccessTokenAdmin(admin.ModelAdmin):
     """Config access token model"""
 
-    list_display = [
-        "token",
-    ]
+    list_display = ["token", "user", "get_url"]
 
 
 admin.site.register(Award, AwardAdmin)
