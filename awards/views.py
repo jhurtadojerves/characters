@@ -1,6 +1,7 @@
 """Award app views"""
 
 # Django
+from django import forms
 from django.contrib import messages
 from django.contrib.auth import login
 from django.views.generic import ListView, DetailView, DeleteView
@@ -59,9 +60,17 @@ class CategoryDetailView(FormMixin, DetailView):
         form = self.get_form()
         self.object = self.get_object()
         voting = context.get("voting", None)
+        selected_options = request.POST.get("selected_options", False)
+        if len(selected_options) > self.object.max_options:
+            messages.error(
+                request, f"Debes elegir un máximo de {self.object.max_options}"
+            )
+            raise forms.ValidationError(
+                f"Debes elegir un máximo de {self.object.max_options}"
+            )
+
         if not voting:
             if form.is_valid():
-                selected_options = request.POST.get("selected_options", False)
                 characters = Character.objects.filter(pk__in=selected_options)
                 voting = form.save(commit=False)
                 voting.user = request.user

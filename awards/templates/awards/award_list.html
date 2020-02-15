@@ -8,7 +8,7 @@
   <div class="row m-3">
     <ul class="list-group list-group-flush">
       {% for award in awards %}
-        <li class="list-group-item"><a href=" {% url 'Award:detail' award.slug %} " >{{ award }}</a></li>
+        <li class="list-group-item"><a href="{% url 'Award:detail' award.slug %}">{{ award }}</a></li>
       {% endfor %}
     </ul>
   </div>
