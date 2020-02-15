@@ -51,7 +51,7 @@ class CategoryDetailView(FormMixin, DetailView):
     def get_form_kwargs(self):
         """Change kwargs"""
         form_kwargs = super().get_form_kwargs()
-        form_kwargs.update({"category": self.get_object()})
+        form_kwargs.update({"category": self.get_object(), "user": self.request.user})
         return form_kwargs
 
     def post(self, request, *args, **kwargs):

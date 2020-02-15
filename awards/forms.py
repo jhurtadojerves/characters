@@ -14,5 +14,9 @@ class VotingForm(ModelForm):
     def __init__(self, *args, **kwargs):
         """Define initial values"""
         self.category = kwargs.pop("category", None)
+        self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-        self.fields["selected_options"].queryset = self.category.participants.all()
+        queryset = self.category.participants.all()
+        if self.user.token and not self.category.self_voting:
+            queryset = queryset.exclude(pk=self.user.token.character.pk)
+        self.fields["selected_options"].queryset = queryset

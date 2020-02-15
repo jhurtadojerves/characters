@@ -4,6 +4,7 @@ from django.contrib import admin
 
 # Local
 from .models import Award, Category, AccessToken, Voting
+from characters.models import Character
 
 
 class AwardAdmin(admin.ModelAdmin):
@@ -22,16 +23,17 @@ class CategoryAdmin(admin.ModelAdmin):
         "award",
         "status",
         "max_options",
+        "self_voting",
         "slug",
     )
-    list_editable = ("name", "status", "max_options")
+    list_editable = ("name", "status", "max_options", "self_voting")
     filter_horizontal = ("participants",)
 
 
 class AccessTokenAdmin(admin.ModelAdmin):
     """Config access token model"""
 
-    list_display = ["token", "user", "get_url"]
+    list_display = ["token", "user", "character", "get_url"]
 
 
 admin.site.register(Award, AwardAdmin)

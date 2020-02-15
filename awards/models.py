@@ -39,6 +39,7 @@ class Category(models.Model):
     status = models.BooleanField(default=True)
     slug = models.SlugField(max_length=512, editable=False)
     max_options = models.PositiveSmallIntegerField(default=1)
+    self_voting = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -47,8 +48,11 @@ class Category(models.Model):
 class AccessToken(models.Model):
     """Create a random token to voting"""
 
-    token = models.UUIDField(unique=True, default=uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    token = models.UUIDField(unique=True, default=uuid4, editable=False,)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="token")
+    character = models.OneToOneField(
+        Character, on_delete=models.CASCADE, null=True, related_name="token"
+    )
 
     def get_url(self):
         return (
