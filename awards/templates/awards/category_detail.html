@@ -47,8 +47,8 @@
   <div class="row mb-5">
     <div class="col">
       <ul class="list-group">
-        {% for user in category.participants.all %}
-        <li class="list-group-item">{{user.name}}</li>
+        {% for user in category.participants.all|dictsort:'nick' %}
+        <li class="list-group-item">{{user.nick}}</li>
         {% endfor %}
       </ul>
     </div>
