@@ -14,15 +14,6 @@
 <div class="container-fluid">
   <div class="row  pt-2">
     <div class="col">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="{% url 'Award:detail' category.award.slug %}" aria-label="Previous">
-              <span aria-hidden="true">&laquo; {{ category.award }}</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
       <h4 class="text-center m-auto">{{ category.name }} - {{ category.award }}</h4>
       <hr>
       <h5 class="text-center m-auto mb-4">Participantes</h5>
@@ -97,4 +88,13 @@
     });
   });
 </script>
+{% endblock %}
+
+
+{% block app_breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'Award:list' %}">Premios</a></li>
+<li class="breadcrumb-item"><a href="{% url 'Award:detail' category.award.slug %}">{{ category.award.name }}</a></li>
+{% endblock %}
+{% block detail_breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">{{ category }}</li>
 {% endblock %}
