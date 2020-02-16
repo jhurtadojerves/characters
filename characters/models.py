@@ -56,7 +56,7 @@ class Character(models.Model):
     slug = models.SlugField(max_length=140)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.nick}"
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nick)
