@@ -11,6 +11,14 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/1712bf1cc0.js"></script>
+
+  <style>
+    .btn.btn-primary {
+      background-color: #e35c0c;
+      border-color: #fcd407;
+    }
+  </style>
+
   {% block css %}
 
   {% endblock css %}
@@ -23,7 +31,7 @@
       <ol class="breadcrumb" style="background-color: transparent !important;">
         <li class="breadcrumb-item"><a href="/">Inicio</a></li>
         {% block app_breadcrumb %}
-          <li class="breadcrumb-item active" aria-current="page">Personajes</li>
+        <li class="breadcrumb-item active" aria-current="page">Personajes</li>
         {% endblock %}
         {% block detail_breadcrumb %}
 
