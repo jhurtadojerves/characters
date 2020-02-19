@@ -27,7 +27,14 @@ class CategoryAdmin(admin.ModelAdmin):
         "self_voting",
         "slug",
     )
-    list_editable = ("name", "status", "max_options", "self_voting", "order")
+    list_editable = (
+        "name",
+        "status",
+        "max_options",
+        "self_voting",
+        "order",
+        "description",
+    )
     filter_horizontal = ("participants",)
 
 
