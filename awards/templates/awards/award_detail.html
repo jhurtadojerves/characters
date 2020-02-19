@@ -40,3 +40,15 @@ Orden del Fénix - {{ award.name }}
 {% block detail_breadcrumb %}
 <li class="breadcrumb-item active" aria-current="page">{{ award }}</li>
 {% endblock %}
+
+{% block css %}
+
+<style>
+  .card-body.text-secondary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+</style>
+
+{% endblock %}
