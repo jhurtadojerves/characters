@@ -40,9 +40,13 @@ class Category(models.Model):
     slug = models.SlugField(max_length=512, editable=False)
     max_options = models.PositiveSmallIntegerField(default=1)
     self_voting = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ("order", "id")
 
 
 class AccessToken(models.Model):

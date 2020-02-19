@@ -23,10 +23,11 @@ class CategoryAdmin(admin.ModelAdmin):
         "award",
         "status",
         "max_options",
+        "order",
         "self_voting",
         "slug",
     )
-    list_editable = ("name", "status", "max_options", "self_voting")
+    list_editable = ("name", "status", "max_options", "self_voting", "order")
     filter_horizontal = ("participants",)
 
 
