@@ -9,7 +9,7 @@ from django.views.generic import (
     ListView,
     UpdateView,
     DetailView,
-    TemplateView
+    TemplateView,
 )
 
 # Third party integration
@@ -22,7 +22,7 @@ from characters.forms import CharacterForm
 
 
 class CharacterList(TemplateView):
-    template_name = 'characters/list.html'
+    template_name = "characters/list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -39,13 +39,13 @@ class CharacterList(TemplateView):
 
 class CharacterDetail(DetailView):
     model = Character
-    template_name = 'characters/detail.html'
+    template_name = "characters/detail.html"
 
 
 class CharacterCreate(LoginRequiredMixin, CreateView):
     model = Character
     form_class = CharacterForm
-    template_name = 'characters/form.html'
+    template_name = "characters/form.html"
 
     def form_valid(self, form):
         instance = form.save(commit=False)
@@ -53,16 +53,15 @@ class CharacterCreate(LoginRequiredMixin, CreateView):
         return redirect("Character:detail", slug=instance.slug)
 
     def handle_no_permission(self):
-        messages.error(
-            self.request, "Only member of staff can create characters")
+        messages.error(self.request, "Only member of staff can create characters")
         return super(CharacterCreate, self).handle_no_permission()
 
 
 class CharacterUpdate(LoginRequiredMixin, UpdateView):
     model = Character
     form_class = CharacterForm
-    template_name = 'characters/form.html'
-    success_url = '../'
+    template_name = "characters/form.html"
+    success_url = "../"
 
 
 class GetProfileInformation(TemplateView):
@@ -75,7 +74,7 @@ class GetProfileInformation(TemplateView):
 
         if response.status_code == 200:
             html = BeautifulSoup(response.text)
-            spans = html.find_all("span", { "class": "row_data" })
+            spans = html.find_all("span", {"class": "row_data"})
             messages = spans[1]
             galleons = spans[10]
             books = spans[15]
@@ -88,15 +87,15 @@ class GetProfileInformation(TemplateView):
 
             data.update(
                 {
-                    "messages":  f"{messages.text}".replace(".", ""),
-                    "galleons":  galleons.text.strip(),
-                    "books":     books.text.strip(),
-                    "graduate":  graduate.text.strip(),
-                    "objects":   objects.text.strip(),
+                    "messages": f"{messages.text}".replace(".", ""),
+                    "galleons": galleons.text.strip(),
+                    "books": books.text.strip(),
+                    "graduate": graduate.text.strip(),
+                    "objects": objects.text.strip(),
                     "creatures": creatures.text.strip(),
                     "knowledge": len(f"{knowledge.text}".strip().split("\r\n")),
-                    "medals":    medals.text.strip(),
-                    "skills":    len(f"{skills.text}".strip().split("\r\n")),
+                    "medals": medals.text.strip(),
+                    "skills": len(f"{skills.text}".strip().split("\r\n")),
                 }
             )
 

@@ -17,6 +17,10 @@ class VotingForm(ModelForm):
         self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
         queryset = self.category.participants.all()
-        if self.user.token and not self.category.self_voting:
+        if (
+            hasattr(self.user, "token")
+            and self.user.token
+            and not self.category.self_voting
+        ):
             queryset = queryset.exclude(pk=self.user.token.character.pk)
         self.fields["selected_options"].queryset = queryset
