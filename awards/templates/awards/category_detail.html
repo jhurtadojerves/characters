@@ -7,6 +7,19 @@
 
 {% block css %}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet"/>
+<style>
+  .nominees-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: .5em;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+  .nominees-items{
+    box-shadow: 1px 1px 5px rgba(0,0,0, .2);
+  }
+
+</style>
 {% endblock %}
 
 
@@ -37,14 +50,14 @@
   </div>
   <div class="row mb-5">
     <div class="col">
-      <ul class="list-group">
+      <ul class="nominees-list">
         {% for user in category.participants.all|dictsort:'nick' %}
-        <li class="list-group-item">{{user.nick}}</li>
+        <li class="list-group-item nominees-items">{{user.nick}}</li>
         {% endfor %}
       </ul>
     </div>
   </div>
-  {% if not voting and user.is_authenticated%}
+  {% if not voting and user.is_authenticated %}
   <div class="row">
     <div class="col">
       <h5 class="text-center m-auto mb-5">Selecciona {{ category.max_options }} opciones</h5>
