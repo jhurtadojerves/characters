@@ -4,7 +4,6 @@ from django.contrib import admin
 
 # Local
 from .models import Award, Category, AccessToken, Voting
-from characters.models import Character
 
 
 class AwardAdmin(admin.ModelAdmin):

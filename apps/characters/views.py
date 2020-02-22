@@ -3,10 +3,9 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views.generic import (
     CreateView,
-    ListView,
     UpdateView,
     DetailView,
     TemplateView,
@@ -17,8 +16,8 @@ from bs4 import BeautifulSoup
 import requests
 
 # Local imports
-from characters.models import Character
-from characters.forms import CharacterForm
+from apps.characters.models import Character
+from apps.characters.forms import CharacterForm
 
 
 class CharacterList(TemplateView):

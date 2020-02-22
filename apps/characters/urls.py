@@ -2,10 +2,8 @@
 from django.urls import path
 
 # Local imports
-from characters.views import (
-    CharacterCreate,
+from apps.characters.views import (
     CharacterList,
-    CharacterUpdate,
     CharacterDetail,
 )
 

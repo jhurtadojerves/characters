@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 
 # Local
-from business.models import Business
+from apps.business.models import Business
 
 
 class Character(models.Model):
@@ -53,6 +53,7 @@ class Character(models.Model):
     vault = models.URLField("Link a la Bóveda")
     storage_vault = models.URLField("Link a la Bóveda Trastero")
     business = models.ManyToManyField(Business, related_name="characters", blank=True)
+    active = models.BooleanField(default=True)
     slug = models.SlugField(max_length=140)
 
     def __str__(self):

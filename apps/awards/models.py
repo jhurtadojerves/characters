@@ -11,7 +11,7 @@ from django.db.models.signals import post_save
 from django.utils.text import slugify
 
 # Local
-from characters.models import Character
+from apps.characters.models import Character
 
 
 class Award(models.Model):

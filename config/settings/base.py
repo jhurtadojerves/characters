@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from django.contrib.messages import constants as messages
 
+# Django Rest Framework
+from .rest_framework import *
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,9 +45,9 @@ DJANGO_APPS = (
     "django.contrib.staticfiles",
 )
 
-THIRD_PARTY_APPS = ("crispy_forms", "ckeditor")
+THIRD_PARTY_APPS = ("crispy_forms", "ckeditor", "rest_framework")
 
-LOCAL_APPS = ("awards", "business", "characters", "families")
+LOCAL_APPS = ("apps.awards", "apps.business", "apps.characters", "apps.families", "api")
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

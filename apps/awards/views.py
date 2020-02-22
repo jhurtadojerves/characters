@@ -9,7 +9,7 @@ from django.views.generic.edit import FormMixin
 from django.shortcuts import redirect, reverse
 
 # Local
-from characters.models import Character
+from apps.characters.models import Character
 from .models import Award, Category, Voting, AccessToken
 from .forms import VotingForm
 
