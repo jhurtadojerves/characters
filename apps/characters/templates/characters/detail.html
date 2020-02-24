@@ -14,19 +14,31 @@
             <h6 style="color:#00b1b1;">{{ character.name }}</h6>
           </div>
           <div class="col-auto col-lg-12">
-            <img src="{{ character.avatar.url }}" title="Imagen de perfil" class="img-thumbnail" id="profile-image1">
+            <img src="{{ character.avatar.url }}" class="img-thumbnail" id="profile-image1" alt="Imagen de Perfil">
           </div>
           <div class="col col-lg-12">
             <div class="row">
-              <div class="col-12 col-lg-4"><a href="{{ character.character_card }}" target="_blank"
-                                              title="Ficha de Personaje"><img
-                src="{% static 'images/ficha.png' %}" alt=""></a></div>
-              <div class="col-12 col-lg-4"><a href="{{ character.vault }}" target="_blank" title="Bóveda"><img
-                src="{% static 'images/boveda.png' %}" alt=""></a></div>
-              <div class="col-12 col-lg-4"><a href="{{ character.storage_vault }}" target="_blank"
-                                              title="Bóveda Trastero"><img
-                src="{% static 'images/trastero.png' %}" alt=""></a></div>
+              <div class="col-12 col-lg-4">
+                <a href="{{ character.character_card }}" target="_blank" title="Ficha de Personaje">
+                  <img src="{% static 'images/ficha.png' %}" alt="">
+                </a>
+              </div>
+              <div class="col-12 col-lg-4">
+                <a href="{{ character.vault }}" target="_blank" title="Bóveda">
+                  <img src="{% static 'images/boveda.png' %}" alt="">
+                </a>
+              </div>
+              <div class="col-12 col-lg-4">
+                <a href="{{ character.storage_vault }}" target="_blank" title="Bóveda Trastero">
+                  <img src="{% static 'images/trastero.png' %}" alt="">
+                </a>
+              </div>
             </div>
+            {% if request.user.is_staff %}
+            <div class="row">
+              <a href="{% url 'Character:update' character.slug %}" class="btn btn-primary mt-5 w-100">Editar</a>
+            </div>
+            {% endif %}
           </div>
         </div>
 

@@ -1,6 +1,6 @@
 # Django
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect
@@ -43,7 +43,14 @@ class CharacterDetail(DetailView):
     template_name = "characters/detail.html"
 
 
-class CharacterCreate(LoginRequiredMixin, CreateView):
+class BaseUserPassesTestMixin(UserPassesTestMixin):
+    """Define test case"""
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+class CharacterCreate(BaseUserPassesTestMixin, CreateView):
     model = Character
     form_class = CharacterForm
     template_name = "characters/form.html"
@@ -58,7 +65,7 @@ class CharacterCreate(LoginRequiredMixin, CreateView):
         return super(CharacterCreate, self).handle_no_permission()
 
 
-class CharacterUpdate(LoginRequiredMixin, UpdateView):
+class CharacterUpdate(BaseUserPassesTestMixin, UpdateView):
     model = Character
     form_class = CharacterForm
     template_name = "characters/form.html"

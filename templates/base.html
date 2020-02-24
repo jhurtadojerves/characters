@@ -17,6 +17,12 @@
       background-color: #e35c0c;
       border-color: #fcd407;
     }
+
+    .nav-link.active {
+      background-color: transparent !important;
+      border: 1px solid #fcd407;
+      color: #6c757d !important;
+    }
   </style>
 
   {% block css %}
@@ -26,7 +32,6 @@
 <body class="bg-light">
   {% include 'nav.html' %}
   <div class="container shadow-lg my-3 rounded pb-3" style="min-height: calc(80vh);">
-
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb" style="background-color: transparent !important;">
         <li class="breadcrumb-item"><a href="/">Inicio</a></li>

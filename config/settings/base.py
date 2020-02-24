@@ -148,7 +148,6 @@ CKEDITOR_UPLOAD_PATH = f"{MEDIA_ROOT}/ckeditor"
 CKEDITOR_CONFIGS = {
     "default": {"toolbar": "full",},
 }
-CRISPY_TEMPLATE_PACK = "uni_form"
 
 MESSAGE_TAGS = {
     messages.DEBUG: "info",
@@ -157,3 +156,5 @@ MESSAGE_TAGS = {
     messages.WARNING: "warning",
     messages.ERROR: "danger",
 }
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

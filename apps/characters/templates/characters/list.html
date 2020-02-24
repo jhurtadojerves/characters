@@ -17,15 +17,19 @@
       <a class="nav-link" id="v-pills-initie-tab" data-toggle="pill" href="#v-pills-initie" role="tab"
          aria-controls="v-pills-initie" aria-selected="false">Inities</a>
     </div>
+    {% if request.user.is_staff %}
+    <a href="{% url 'Character:create' %}" class="btn btn-primary mt-4 w-100">Nuevo</a>
+    {% endif %}
+
   </div>
   <div class="col-9">
     <div class="tab-content" id="v-pills-tabContent">
-      {% include 'characters/items.html' with characters=lideres tab='home' status='active' %}
-      {% include 'characters/items.html' with characters=demonhunters tab='profile' %}
-      {% include 'characters/items.html' with characters=knights tab='messages' %}
-      {% include 'characters/items.html' with characters=templarios tab='settings' %}
-      {% include 'characters/items.html' with characters=legionarios tab='legionario' %}
-      {% include 'characters/items.html' with characters=inities tab='initie' %}
+      {% include 'characters/tab-item.html' with characters=lideres tab='home' status='active' %}
+      {% include 'characters/tab-item.html' with characters=demonhunters tab='profile' %}
+      {% include 'characters/tab-item.html' with characters=knights tab='messages' %}
+      {% include 'characters/tab-item.html' with characters=templarios tab='settings' %}
+      {% include 'characters/tab-item.html' with characters=legionarios tab='legionario' %}
+      {% include 'characters/tab-item.html' with characters=inities tab='initie' %}
     </div>
   </div>
 </div>
