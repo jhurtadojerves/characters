@@ -26,7 +26,9 @@ class CharacterList(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         characters = Character.objects.all()
-        context["lideres"] = characters.filter(Q(range=6) | Q(is_lieutenant=True))
+        context["lideres"] = characters.filter(
+            Q(range=6) | Q(is_lieutenant=True)
+        ).order_by("-range")
         characters = characters.exclude(is_lieutenant=True)
         context["inities"] = characters.filter(range=1)
         context["legionarios"] = characters.filter(range=2)

@@ -1,0 +1,11 @@
+<div class="tab-pane fade show {{status}}" id="v-pills-{{ tab }}" role="tabpanel" aria-labelledby="v-pills-{{ tab }}-tab">
+  <ul class="characters-list">
+    {% for character in characters %}
+    <li class="list-group-item characters-item">
+      <span class="badge badge-info badge-top">{{ forloop.counter }}</span>
+      <a href="{% url 'Character:detail' character.slug %}">{{ character }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+

@@ -62,3 +62,6 @@ class Character(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nick)
         super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ("nick",)
