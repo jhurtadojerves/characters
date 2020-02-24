@@ -4,18 +4,12 @@
 <div class="row m-4 pt-4">
   <div class="col-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-         aria-controls="v-pills-home" aria-selected="true">Lider y LTs</a>
-      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
-         aria-controls="v-pills-profile" aria-selected="false">Demon Hunters</a>
-      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
-         aria-controls="v-pills-messages" aria-selected="false">Knights</a>
-      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
-         aria-controls="v-pills-settings" aria-selected="false">Templarios</a>
-      <a class="nav-link" id="v-pills-legionario-tab" data-toggle="pill" href="#v-pills-legionario" role="tab"
-         aria-controls="v-pills-legionario" aria-selected="false">Legionarios</a>
-      <a class="nav-link" id="v-pills-initie-tab" data-toggle="pill" href="#v-pills-initie" role="tab"
-         aria-controls="v-pills-initie" aria-selected="false">Inities</a>
+      {% include 'characters/nav-tab-item.html' with menu='lideres' name='Lider y LTs' status='active' %}
+      {% include 'characters/nav-tab-item.html' with menu='hunters' name='Demon Hunters' %}
+      {% include 'characters/nav-tab-item.html' with menu='knights' name='Knights' %}
+      {% include 'characters/nav-tab-item.html' with menu='templarios' name='Templarios' %}
+      {% include 'characters/nav-tab-item.html' with menu='legionarios' name='Legionarios' %}
+      {% include 'characters/nav-tab-item.html' with menu='inities' name='Inities' %}
     </div>
     {% if request.user.is_staff %}
     <a href="{% url 'Character:create' %}" class="btn btn-primary mt-4 w-100">Nuevo</a>
@@ -24,12 +18,12 @@
   </div>
   <div class="col-9">
     <div class="tab-content" id="v-pills-tabContent">
-      {% include 'characters/tab-item.html' with characters=lideres tab='home' status='active' %}
-      {% include 'characters/tab-item.html' with characters=demonhunters tab='profile' %}
-      {% include 'characters/tab-item.html' with characters=knights tab='messages' %}
-      {% include 'characters/tab-item.html' with characters=templarios tab='settings' %}
-      {% include 'characters/tab-item.html' with characters=legionarios tab='legionario' %}
-      {% include 'characters/tab-item.html' with characters=inities tab='initie' %}
+      {% include 'characters/tab-item.html' with characters=lideres tab='lideres' status='active' %}
+      {% include 'characters/tab-item.html' with characters=demonhunters tab='hunters' %}
+      {% include 'characters/tab-item.html' with characters=knights tab='knights' %}
+      {% include 'characters/tab-item.html' with characters=templarios tab='templarios' %}
+      {% include 'characters/tab-item.html' with characters=legionarios tab='legionarios' %}
+      {% include 'characters/tab-item.html' with characters=inities tab='inities' %}
     </div>
   </div>
 </div>
