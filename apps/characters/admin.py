@@ -1,10 +1,14 @@
+"""Admin Characters models"""
 from django.contrib import admin
 
+# Third Party Integration
+from import_export.admin import ImportExportModelAdmin
 
+# Local imports
 from .models import Character
 
 
-class CharacterAdmin(admin.ModelAdmin):
+class CharacterAdmin(ImportExportModelAdmin):
     list_display = "name", "nick", "range", "user"
     list_editable = ("user",)
 

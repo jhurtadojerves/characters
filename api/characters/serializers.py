@@ -1,7 +1,11 @@
 """Define all serializers from Characters API"""
 
 # Third Party Integration
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import (
+    ModelSerializer,
+    HyperlinkedModelSerializer,
+    HyperlinkedIdentityField,
+)
 
 # Local apps
 from apps.characters.models import Character
@@ -15,12 +19,18 @@ class CharacterRelationSerializer(ModelSerializer):
         fields = ("nick", "range")
 
 
-class CharacterSerializer(ModelSerializer):
+class CharacterSerializer(HyperlinkedModelSerializer):
     """Serializer from character"""
+
+    url = HyperlinkedIdentityField(
+        view_name="API:characters-detail", lookup_field="slug"
+    )
+    lookup_field = "slug"
 
     class Meta:
         model = Character
         fields = (
+            "url",
             "name",
             "avatar",
             "nick",

@@ -45,7 +45,7 @@ DJANGO_APPS = (
     "django.contrib.staticfiles",
 )
 
-THIRD_PARTY_APPS = ("crispy_forms", "ckeditor", "rest_framework")
+THIRD_PARTY_APPS = ("crispy_forms", "ckeditor", "rest_framework", "import_export")
 
 LOCAL_APPS = ("apps.awards", "apps.business", "apps.characters", "apps.families", "api")
 

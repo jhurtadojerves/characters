@@ -7,4 +7,4 @@ from rest_framework import routers
 from .api import CharacterViewSet
 
 router = routers.SimpleRouter()
-router.register(r"characters", CharacterViewSet)
+router.register(r"characters", viewset=CharacterViewSet, basename="characters")

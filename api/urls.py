@@ -8,6 +8,8 @@ from .patches import routers  # Extended Rest Framework Routers
 from .awards.router import router as awards
 from .characters.router import router as characters
 
+app_name = "API"
+
 router = routers.DefaultRouter()
 
 router.extend(awards)
