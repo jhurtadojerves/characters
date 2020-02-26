@@ -2,6 +2,10 @@
 from django.db import models
 from django.utils.text import slugify
 
+# Third Party Integration
+from ckeditor.fields import RichTextField
+
+
 # Local
 from apps.business.models import Business
 
@@ -33,17 +37,17 @@ class Character(models.Model):
     user = models.CharField(
         max_length=128, blank=True, null=True, verbose_name="Nombre Real"
     )
-    characteristics = models.TextField(
+    characteristics = RichTextField(
         verbose_name="Características Principales del Personaje"
     )
     job = models.CharField(
         max_length=256, blank=True, null=True, verbose_name="Trabajo en el CMI"
     )
-    job_description = models.TextField(
+    job_description = RichTextField(
         blank=True, null=True, verbose_name="Información adicional sobre el trabajo"
     )
-    patronus = models.TextField(verbose_name="Descripción del Patronus")
-    wand = models.TextField(verbose_name="Descripción de la Varita Mágica")
+    patronus = RichTextField(verbose_name="Descripción del Patronus")
+    wand = RichTextField(verbose_name="Descripción de la Varita Mágica")
     secondary_characters = models.URLField(
         blank=True,
         null=True,

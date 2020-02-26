@@ -68,7 +68,7 @@ class CharacterCreate(BaseUserPassesTestMixin, CreateView):
 class CharacterUpdate(BaseUserPassesTestMixin, UpdateView):
     model = Character
     form_class = CharacterForm
-    template_name = "characters/form.html"
+    template_name = "characters/update.html"
     success_url = "../"
 
 

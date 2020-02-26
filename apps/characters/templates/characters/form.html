@@ -7,11 +7,17 @@
 {% block content %}
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
+  {{ form.media }}
   {{ form|crispy }}
   <button type="submit" class="btn btn-primary m-2 mb-3">Guardar</button>
 </form>
 {% endblock content %}
-
+{% block app_breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'Character:list' %}">Personajes</a></li>
+{% endblock %}
+{% block detail_breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">Create</li>
+{% endblock %}
 
 {% block js %}
 <script>
@@ -19,4 +25,7 @@
     // Chosen options here
   });
 </script>
-{% endblock js %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+{% endblock %}
