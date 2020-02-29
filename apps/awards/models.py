@@ -19,6 +19,7 @@ class Award(models.Model):
 
     name = models.CharField(max_length=128, unique=True)
     description = models.TextField()
+    opened = models.BooleanField(default=False)
     slug = models.SlugField(max_length=512, editable=False)
 
     def __str__(self):

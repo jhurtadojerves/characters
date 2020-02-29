@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock css %}
+
+{% block title %}
+{{ block.super }} - {{ character.name }}
+{% endblock %}
+
 {% block content %}
 <br>
 <div class="card">
@@ -125,15 +131,10 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </div>
 {% endblock content %}
 
-{% block title %}
-{{ block.super }} - {{ character.name }}
-{% endblock %}
 
 {% block app_breadcrumb %}
 <li class="breadcrumb-item"><a href="{% url 'Character:list' %}">Personajes</a></li>

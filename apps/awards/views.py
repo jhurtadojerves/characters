@@ -61,6 +61,9 @@ class CategoryDetailView(FormMixin, DetailView):
         self.object = self.get_object()
         voting = context.get("voting", None)
         selected_options = request.POST.get("selected_options", False)
+        if not self.object.award.opened:
+            messages.error(request, f"{self.object.award.opened} está cerrado.")
+            raise forms.ValidationError(f"{self.object.award.opened} está cerrado.")
         if len(selected_options) > self.object.max_options:
             messages.error(
                 request, f"Debes elegir un máximo de {self.object.max_options}"
@@ -68,7 +71,6 @@ class CategoryDetailView(FormMixin, DetailView):
             raise forms.ValidationError(
                 f"Debes elegir un máximo de {self.object.max_options}"
             )
-
         if not voting:
             if form.is_valid():
                 characters = Character.objects.filter(pk__in=selected_options)
@@ -78,14 +80,12 @@ class CategoryDetailView(FormMixin, DetailView):
                 voting.save()
                 for character in characters:
                     voting.selected_options.add(character)
-
                 messages.success(request, "Tu voto se registró correctamente")
             else:
                 messages.error(request, "Por favor corrige los errores")
                 return super().form_invalid(form)
         else:
             messages.error(request, "Ya votaste antes en esta categoría")
-
         return redirect(
             reverse("Award:category-detail", args=(kwargs["award"], kwargs["slug"]))
         )

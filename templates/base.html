@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet"/>
+
   <script src="https://kit.fontawesome.com/1712bf1cc0.js"></script>
 
   <style>
@@ -18,18 +20,30 @@
       border-color: #fcd407;
     }
 
-    .nav-link.active {
-      background-color: transparent !important;
-      border: 1px solid #fcd407;
-      color: #6c757d !important;
+    .cke {
+      width: 100% !important;
     }
 
     .django-ckeditor-widget {
       width: 100% !important;
     }
 
-    .cke {
-      width: 100% !important;
+    .nav-link.active {
+      background-color: transparent !important;
+      border: 1px solid #fcd407;
+      color: #6c757d !important;
+    }
+
+    .nominees-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      grid-gap: .5em;
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+
+    .nominees-items {
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
     }
   </style>
 
