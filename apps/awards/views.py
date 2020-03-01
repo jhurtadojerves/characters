@@ -60,7 +60,7 @@ class CategoryDetailView(FormMixin, DetailView):
         form = self.get_form()
         self.object = self.get_object()
         voting = context.get("voting", None)
-        selected_options = request.POST.get("selected_options", False)
+        selected_options = request.POST.getlist("selected_options")
         if not self.object.award.opened:
             messages.error(request, f"{self.object.award.opened} está cerrado.")
             raise forms.ValidationError(f"{self.object.award.opened} está cerrado.")
