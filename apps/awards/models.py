@@ -20,6 +20,9 @@ class Award(models.Model):
     name = models.CharField(max_length=128, unique=True)
     description = models.TextField()
     opened = models.BooleanField(default=False)
+    duplicate_to = models.ForeignKey(
+        "self", on_delete=models.CASCADE, null=True, blank=True
+    )
     slug = models.SlugField(max_length=512, editable=False)
 
     def __str__(self):
@@ -42,9 +45,44 @@ class Category(models.Model):
     max_options = models.PositiveSmallIntegerField(default=1)
     self_voting = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=1)
+    winners = models.ManyToManyField(
+        Character, related_name="winners", through="Winner"
+    )
+    number_of_winners = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return self.name
+
+    def calculate_winners(self):
+        voting = None
+        if self.votes.all():
+            voting = (
+                self.votes.all()
+                .values("selected_options")
+                .annotate(number_of_votes=models.Count("selected_options"))
+                .filter(number_of_votes__gt=0)
+                .order_by("-number_of_votes")
+            )
+            if len(voting) >= self.number_of_winners:
+                max_indice = self.number_of_winners - 1
+                for i in range(max_indice, len(voting) - 1):
+                    if (
+                        voting[max_indice]["number_of_votes"]
+                        == voting[max_indice + 1]["number_of_votes"]
+                    ):
+                        max_indice = max_indice + 1
+                max_indice = max_indice + 1
+                voting = voting[:max_indice]
+            for character in voting:
+                character.update(
+                    {
+                        "character": Character.objects.get(
+                            pk=character["selected_options"]
+                        )
+                    }
+                )
+                del character["selected_options"]
+        return voting
 
     class Meta:
         ordering = ("order", "id")
@@ -76,8 +114,25 @@ class Voting(models.Model):
         Character, verbose_name="Seleccionar las opciones"
     )
 
+    def award(self):
+        return self.category.award
+
+    def admin_selected_options(self):
+        selected_options = ""
+        for selected in self.selected_options.all():
+            selected_options += f"<li>{selected}</li>"
+        return f"<ul>{selected_options}</ul>"
+
     class Meta:
         unique_together = ("user", "category")
+
+
+class Winner(models.Model):
+    """Select winners"""
+
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    character = models.ForeignKey(Character, on_delete=models.PROTECT)
+    number_of_votes = models.PositiveIntegerField()
 
 
 def create_unique_slug(sender, instance, created, **kwargs):
