@@ -78,7 +78,6 @@ class CategoryAdmin(admin.ModelAdmin):
         "max_options",
         "order",
         "self_voting",
-        "slug",
     )
     list_editable = (
         "name",
