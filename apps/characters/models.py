@@ -8,9 +8,12 @@ from ckeditor.fields import RichTextField
 
 # Local
 from apps.business.models import Business
+from apps.achievements.models import Achievement
 
 
 class Character(models.Model):
+    """Character model"""
+
     range_choices = (
         ("1", "Initie"),
         ("2", "Legionario"),
@@ -58,7 +61,11 @@ class Character(models.Model):
     storage_vault = models.URLField("Link a la Bóveda Trastero")
     business = models.ManyToManyField(Business, related_name="characters", blank=True)
     active = models.BooleanField(default=True)
-    slug = models.SlugField(max_length=140)
+    slug = models.SlugField(max_length=140, editable=False)
+
+    achievements = models.ManyToManyField(
+        Achievement, related_name="characters", blank=True, null=True
+    )
 
     def __str__(self):
         return f"{self.nick}"

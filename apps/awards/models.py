@@ -8,10 +8,10 @@ from django.shortcuts import reverse
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
-from django.utils.text import slugify
 
 # Local
 from apps.characters.models import Character
+from utils.create_unique_slug import create_unique_slug
 
 
 class Award(models.Model):
@@ -133,18 +133,6 @@ class Winner(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     character = models.ForeignKey(Character, on_delete=models.PROTECT)
     number_of_votes = models.PositiveIntegerField()
-
-
-def create_unique_slug(sender, instance, created, **kwargs):
-    """Create and update slug"""
-    if created:
-        instance.slug = slugify(f"{instance.pk} {instance.name}")
-        instance.save()
-    else:
-        slug = instance.slug
-        instance.slug = slugify(f"{instance.pk} {instance.name}")
-        if not slug == instance.slug:
-            instance.save()
 
 
 post_save.connect(create_unique_slug, Award)

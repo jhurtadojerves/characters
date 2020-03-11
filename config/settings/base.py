@@ -47,7 +47,14 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = ("crispy_forms", "ckeditor", "rest_framework", "import_export")
 
-LOCAL_APPS = ("apps.awards", "apps.business", "apps.characters", "apps.families", "api")
+LOCAL_APPS = (
+    "apps.awards",
+    "apps.business",
+    "apps.characters",
+    "apps.families",
+    "apps.achievements",
+    "api",
+)
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

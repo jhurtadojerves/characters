@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="row m-4 pt-4">
-  <div class="col-sm-12 col-md-2">
+  <div class="col-12 mb-5">
     <div class="nav nav-pills flex-sm-row flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       {% include 'characters/nav-tab-item.html' with menu='lideres' name='Lider y LTs' status='active' %}
       {% include 'characters/nav-tab-item.html' with menu='hunters' name='Demon Hunters' %}
@@ -11,12 +11,8 @@
       {% include 'characters/nav-tab-item.html' with menu='legionarios' name='Legionarios' %}
       {% include 'characters/nav-tab-item.html' with menu='inities' name='Inities' %}
     </div>
-    {% if request.user.is_staff %}
-    <a href="{% url 'Character:create' %}" class="btn btn-primary mt-4 w-100">Nuevo</a>
-    {% endif %}
-
   </div>
-  <div class="col-sm-12 col-md-10">
+  <div class="col-12">
     <div class="tab-content" id="v-pills-tabContent">
       {% include 'characters/tab-item.html' with characters=lideres tab='lideres' status='active' %}
       {% include 'characters/tab-item.html' with characters=demonhunters tab='hunters' %}
@@ -25,6 +21,11 @@
       {% include 'characters/tab-item.html' with characters=legionarios tab='legionarios' %}
       {% include 'characters/tab-item.html' with characters=inities tab='inities' %}
     </div>
+  </div>
+  <div class="col-12 mt-3">
+    {% if request.user.is_staff %}
+    <a href="{% url 'Character:create' %}" class="btn btn-primary mt-4 w-100">Nuevo</a>
+    {% endif %}
   </div>
 </div>
 {% endblock content %}

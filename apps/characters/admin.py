@@ -11,6 +11,7 @@ from .models import Character
 class CharacterAdmin(ImportExportModelAdmin):
     list_display = "name", "nick", "range", "user"
     list_editable = ("user",)
+    filter_horizontal = ("achievements", "business")
 
 
 admin.site.register(Character, CharacterAdmin)
