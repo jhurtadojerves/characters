@@ -1,9 +1,7 @@
 # Django
-from django.contrib import messages
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, reverse
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -18,6 +16,7 @@ import requests
 # Local imports
 from apps.characters.models import Character
 from apps.characters.forms import CharacterForm
+from utils.is_staff import IsStaff
 
 
 class CharacterList(TemplateView):
@@ -43,33 +42,24 @@ class CharacterDetail(DetailView):
     template_name = "characters/detail.html"
 
 
-class BaseUserPassesTestMixin(UserPassesTestMixin):
-    """Define test case"""
-
-    def test_func(self):
-        return self.request.user.is_staff
-
-
-class CharacterCreate(BaseUserPassesTestMixin, CreateView):
+class CharacterCreate(IsStaff, CreateView):
     model = Character
     form_class = CharacterForm
     template_name = "characters/form.html"
 
     def form_valid(self, form):
-        instance = form.save(commit=False)
-        instance.save()
+        instance = form.save()
         return redirect("Character:detail", slug=instance.slug)
 
-    def handle_no_permission(self):
-        messages.error(self.request, "Only member of staff can create characters")
-        return super(CharacterCreate, self).handle_no_permission()
 
-
-class CharacterUpdate(BaseUserPassesTestMixin, UpdateView):
+class CharacterUpdate(IsStaff, UpdateView):
     model = Character
     form_class = CharacterForm
     template_name = "characters/update.html"
-    success_url = "../"
+
+    def form_valid(self, form):
+        character = form.save()
+        return redirect(reverse("Character:detail", args=(character.slug,)))
 
 
 class GetProfileInformation(TemplateView):
