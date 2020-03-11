@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="row m-4 pt-4">
-  <div class="col-3">
-    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+  <div class="col-sm-12 col-md-2">
+    <div class="nav nav-pills flex-sm-row flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       {% include 'characters/nav-tab-item.html' with menu='lideres' name='Lider y LTs' status='active' %}
       {% include 'characters/nav-tab-item.html' with menu='hunters' name='Demon Hunters' %}
       {% include 'characters/nav-tab-item.html' with menu='knights' name='Knights' %}
@@ -16,7 +16,7 @@
     {% endif %}
 
   </div>
-  <div class="col-9">
+  <div class="col-sm-12 col-md-10">
     <div class="tab-content" id="v-pills-tabContent">
       {% include 'characters/tab-item.html' with characters=lideres tab='lideres' status='active' %}
       {% include 'characters/tab-item.html' with characters=demonhunters tab='hunters' %}
