@@ -82,12 +82,12 @@
                 <hr class="my-4">
                 <div class="row">
                   <div class="col-12 col-lg-2 font-weight-bold">Patronus</div>
-                  <div class="col-12 col-lg-10">{{ character.patronus }}</div>
+                  <div class="col-12 col-lg-10">{% autoescape off %}{{ character.patronus }}{% endautoescape %}</div>
                 </div>
                 <hr class="my-4">
                 <div class="row">
                   <div class="col-12 col-lg-2 font-weight-bold">Varita Mágica</div>
-                  <div class="col-12 col-lg-10">{{ character.wand }}</div>
+                  <div class="col-12 col-lg-10">{% autoescape off %}{{ character.wand }}{% endautoescape %}</div>
                 </div>
                 <hr class="my-4">
               </div>
@@ -104,12 +104,12 @@
                 <hr class="my-4">
                 <div class="row">
                   <div class="col-12 col-lg-2 font-weight-bold">Características del Personaje</div>
-                  <div class="col-12 col-lg-10">{{ character.characteristics }}</div>
+                  <div class="col-12 col-lg-10">{% autoescape off %}{{ character.characteristics }}{% endautoescape %}</div>
                 </div>
                 <hr class="my-4">
                 <div class="row">
                   <div class="col-12 col-lg-2 font-weight-bold">Empleo en el CMI</div>
-                  <div class="col-12 col-lg-10">{{ character.job }}</div>
+                  <div class="col-12 col-lg-10">{% autoescape off %}{{ character.job }}{% endautoescape %}</div>
                 </div>
                 <hr class="my-4">
               </div>
