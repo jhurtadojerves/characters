@@ -90,9 +90,7 @@
                 <div class="row">
                   <div class="col-12 col-lg-2 font-weight-bold">Nombre del Personaje</div>
                   <div class="col-12 col-lg-10">
-                    <a
-                      href="{{ character.secondary_characters|default_if_none:'#' }}"
-                      target="_blank">{{ character.name }}</a>
+                    {{ character.name }}
                   </div>
                 </div>
                 <hr class="my-4">
