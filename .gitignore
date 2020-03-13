@@ -6,7 +6,6 @@ __pycache__
 .DS_Store
 .vscode
 /media
-
 notes.txt
 .idea
 *.lock

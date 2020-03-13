@@ -25,7 +25,7 @@ class Character(models.Model):
 
     name = models.CharField(max_length=128, verbose_name="Nombre del Personaje")
     avatar = models.ImageField(
-        blank=True, upload_to="avatar/", default="avatar/default.jpg"
+        blank=True, upload_to="avatar/", default="avatar/fenix.png"
     )
     nick = models.CharField(max_length=128, unique=True, verbose_name="Nick de Usuario")
     range = models.CharField(
