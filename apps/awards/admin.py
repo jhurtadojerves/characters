@@ -85,7 +85,7 @@ class CategoryAdmin(admin.ModelAdmin):
         "max_options",
         "self_voting",
         "order",
-        "description",
+        "number_of_winners",
     )
     filter_horizontal = ("participants",)
     list_filter = ("award",)
