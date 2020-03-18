@@ -12,15 +12,14 @@ Orden del Fénix - {{ award.name }}
       <br><br>
       <div class="row row-cols-1 row-cols-md-3">
         {% for category in award.categories.all %}
-        {% if category.status %}
         <div class="col mb-4">
           <div class="card border-secondary h-100">
             <div class="card-header">{{category.name}}
-              {% for vote in request.user.votes.all %}
-                {% if vote.category == category %}
-                  <span class="badge badge-success">Ya votaste</span>
-                {% endif %}
-              {% endfor %}
+                                     {% for vote in request.user.votes.all %}
+                                     {% if vote.category == category %}
+              <span class="badge badge-success">Ya votaste</span>
+                                     {% endif %}
+                                     {% endfor %}
             </div>
             <div class="card-body text-secondary">
               <p class="card-text">{{category.description}}</p>
@@ -28,7 +27,6 @@ Orden del Fénix - {{ award.name }}
             </div>
           </div>
         </div>
-        {% endif %}
         {% endfor %}
       </div>
     </div>

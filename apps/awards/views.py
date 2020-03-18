@@ -10,7 +10,7 @@ from django.shortcuts import redirect, reverse
 
 # Local
 from apps.characters.models import Character
-from .models import Award, Category, Voting, AccessToken
+from .models import Award, Category, Voting, AccessToken, Winner
 from .forms import VotingForm
 
 
@@ -38,6 +38,7 @@ class CategoryDetailView(FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         self.object = self.get_object()
         context = super().get_context_data(**kwargs)
+        context.update({"winners": Winner.objects.filter(category=self.object)})
         try:
             voting = Voting.objects.filter(user=self.request.user, category=self.object)
             if voting.exists():

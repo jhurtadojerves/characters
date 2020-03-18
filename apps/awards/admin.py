@@ -5,7 +5,7 @@ from django.db import transaction
 from django.utils.html import format_html
 
 # Local
-from .models import Award, Category, AccessToken, Voting
+from .models import Award, Category, AccessToken, Voting, Winner
 
 
 class AwardAdmin(admin.ModelAdmin):
@@ -88,8 +88,21 @@ class CategoryAdmin(admin.ModelAdmin):
         "order",
         "number_of_winners",
     )
-    filter_horizontal = ("participants",)
+    filter_horizontal = ("participants", "winners")
     list_filter = ("award",)
+    actions = ("define_winners",)
+
+    def define_winners(self, request, queryset):
+        """"""
+        with transaction.atomic():
+            try:
+                for instance in queryset:
+                    instance.set_winners()
+            except Exception as e:
+                messages.error(
+                    request, e.__str__(),
+                )
+                transaction.set_rollback(True)
 
 
 class AccessTokenAdmin(admin.ModelAdmin):
@@ -109,7 +122,19 @@ class VotingAdmin(admin.ModelAdmin):
         return format_html(obj.admin_selected_options())
 
 
+class WinnerAdmin(admin.ModelAdmin):
+    """"""
+
+    list_display = ("category", "character", "number_of_votes")
+    list_filter = (
+        "category__award",
+        "category",
+        "character",
+    )
+
+
 admin.site.register(Award, AwardAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(AccessToken, AccessTokenAdmin)
 admin.site.register(Voting, VotingAdmin)
+admin.site.register(Winner, WinnerAdmin)

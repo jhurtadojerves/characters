@@ -11,11 +11,25 @@
     <div class="col">
       <h4 class="text-center m-auto">{{ category.name }} - {{ category.award }}</h4>
       <hr>
+      {% if not winners %}
       <h5 class="text-center m-auto mb-4">Participantes</h5>
+      {% endif %}
       <br><br>
     </div>
   </div>
-  {% if not category.award.opened %}
+  {% if winners %}
+  <div class="row">
+    <div class="col">
+      {% if category.number_of_winners == 1 %}
+      <h5 class="text-center m-auto mb-5">La persona ganadora es: </h5>
+      {% else %}
+      <h5 class="text-center m-auto mb-5">Las personas que clasficican a la siguiente etapa son: </h5>
+
+      {% endif %}
+    </div>
+  </div>
+  {% else %}
+  {% if not category.award.opened%}
   <div class="row">
     <div class="col">
       <h5 class="text-center m-auto mb-5">{{ category.award.name }} está cerrado</h5>
@@ -32,7 +46,7 @@
   {% elif not voting %}
   <div class="row">
     <div class="col">
-      <h5 class="text-center m-auto mb-5">Selecciona {{ category.max_options }} opciones</h5>
+      <h5 class="text-center m-auto mb-5">Selecciona {{ category.max_options }} opcion/es</h5>
       <form action="" method="POST" class="uniForm">
         {% csrf_token %}
         {{ form|crispy }}
@@ -52,12 +66,21 @@
     </div>
   </div>
   {% endif %}
+  {% endif %}
+
+
   <div class="row mb-5 mt-5">
     <div class="col">
       <ul class="nominees-list">
+        {% if winners %}
+        {% for winner in winners %}
+        <li class="list-group-item nominees-items">{{ winner }}: {{winner.number_of_votes}}</li>
+        {% endfor %}
+        {% else %}
         {% for user in category.participants.all|dictsort:'nick' %}
         <li class="list-group-item nominees-items">{{user.nick}}</li>
         {% endfor %}
+        {% endif %}
       </ul>
     </div>
   </div>

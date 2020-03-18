@@ -84,6 +84,23 @@ class Category(models.Model):
                 del character["selected_options"]
         return voting
 
+    def set_winners(self):
+        """"""
+        if not self.award.opened:
+            winners = self.calculate_winners()
+            if winners:
+                for winner in winners:
+                    Winner.objects.create(
+                        category=self,
+                        character=winner["character"],
+                        number_of_votes=winner["number_of_votes"],
+                    )
+            else:
+                for winner in self.participants.all():
+                    Winner.objects.create(
+                        category=self, character=winner, number_of_votes=0
+                    )
+
     class Meta:
         ordering = ("order", "id")
 
@@ -133,6 +150,12 @@ class Winner(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     character = models.ForeignKey(Character, on_delete=models.PROTECT)
     number_of_votes = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.character.__str__()
+
+    class Meta:
+        ordering = ("-number_of_votes",)
 
 
 post_save.connect(create_unique_slug, Award)
