@@ -45,5 +45,18 @@ class AchievementRequirements(models.Model):
         unique_together = [["achievement", "requirement"], ["achievement", "order"]]
 
 
-post_save.connect(create_unique_slug, Road)
+class GroupAchievement(models.Model):
+    """Achievements for Odf and MT"""
+
+    name = models.CharField(max_length=128, unique=True)
+    odf_date = models.DateField(null=True, blank=True)
+    mt_date = models.DateField(null=True, blank=True)
+    slug = models.SlugField(unique=True, editable=False)
+
+    def __str__(self):
+        return self.name
+
+
 post_save.connect(create_unique_slug, Achievement)
+post_save.connect(create_unique_slug, GroupAchievement)
+post_save.connect(create_unique_slug, Road)
