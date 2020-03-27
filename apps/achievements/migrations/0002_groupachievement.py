@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('achievements', '0001_initial'),
+        ("achievements", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='GroupAchievement',
+            name="GroupAchievement",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=128, unique=True)),
-                ('odf_date', models.DateField(blank=True, null=True)),
-                ('mt_date', models.DateField(blank=True, null=True)),
-                ('slug', models.SlugField(editable=False, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=128, unique=True)),
+                ("odf_date", models.DateField(blank=True, null=True)),
+                ("mt_date", models.DateField(blank=True, null=True)),
+                ("slug", models.SlugField(editable=False, unique=True)),
             ],
         ),
     ]
