@@ -72,14 +72,12 @@
   <div class="row mb-5 mt-5">
     <div class="col">
       <ul class="nominees-list">
-        {% if winners %}
-        {% for winner in winners %}
-        <li class="list-group-item nominees-items">{{ winner }}: {{winner.number_of_votes}}</li>
-        {% endfor %}
+        {% if winners and category.show_winners %}
+        {% include 'awards/winner.html' %}
+        {% endif %}
+        {% elif request.user.is_staff %}
+        {% include 'awards/winner.html' %}
         {% else %}
-        {% for user in category.participants.all|dictsort:'nick' %}
-        <li class="list-group-item nominees-items">{{user.nick}}</li>
-        {% endfor %}
         {% endif %}
       </ul>
     </div>

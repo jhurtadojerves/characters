@@ -49,6 +49,7 @@ class Category(models.Model):
         Character, related_name="winners", through="Winner"
     )
     number_of_winners = models.PositiveIntegerField(default=1)
+    show_winners = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

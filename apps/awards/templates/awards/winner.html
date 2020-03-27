@@ -1,0 +1,7 @@
+{% for winner in winners %}
+<li class="list-group-item nominees-items">{{ winner }}: {{winner.number_of_votes}}</li>
+{% endfor %}
+{% else %}
+{% for user in category.participants.all|dictsort:'nick' %}
+<li class="list-group-item nominees-items">{{user.nick}}</li>
+{% endfor %}
