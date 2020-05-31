@@ -8,7 +8,13 @@ from .models import Achievement, Point, Road
 
 
 class AchievementAdmin(admin.ModelAdmin):
-    list_display = ("name", "slug")
+    list_display = (
+        "name",
+        "road",
+        "points",
+        "get_icon_principal",
+        "get_icon_secondary",
+    )
 
 
 class PointAdmin(admin.ModelAdmin):

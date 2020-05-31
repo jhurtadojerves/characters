@@ -4,6 +4,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.db.models import Sum
+from django.utils.html import mark_safe
 
 # Local
 from utils.create_unique_slug import create_unique_slug
@@ -30,6 +31,12 @@ class Achievement(models.Model):
     icon_principal = models.ImageField(upload_to="achievements")
     icon_secondary = models.ImageField(upload_to="achievements")
     slug = models.SlugField(unique=True, editable=False)
+
+    def get_icon_principal(self):
+        return mark_safe(f"<img src='{self.icon_principal.url}' />")
+
+    def get_icon_secondary(self):
+        return mark_safe(f"<img src='{self.icon_secondary.url}' />")
 
     def __str__(self):
         return self.name
