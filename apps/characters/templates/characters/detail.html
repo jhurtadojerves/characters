@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load characters %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
@@ -128,19 +129,22 @@
       <div class="col-12">
         <h3 class="text-center">Logros del Usuario</h3>
         <hr>
-        {% for key, values in character.get_order_achievements.items %}
+        {% for key, values in achievements.items %}
           <div class="col-12">
-          <h4 class="text-center">{{ key }}</h4>
-            {% for value in values %}
-              <div class="text-center">
-                <img src="{{ value.icon_principal.url }}" class="rounded" alt="...">
-                <p>
-                  <i>{{ value.name }}</i> <br />
-                  Al acumular {{ value.points }} puntos
-                </p>
+            <h4 class="text-center">{{ key }}</h4>
+              <div class="row">
+                {% for achievement in values %}
+                <div class="col-4 text-center">
+                  {% icon character achievement as selected_icon %}
+                  <img src="{{ selected_icon.url }}" class="rounded" alt="...">
+                  <p>
+                    <i>{{ achievement.name }}</i> <br />
+                    Al acumular {{ achievement.points }} puntos
+                  </p>
+                </div>
+              {% endfor %}
               </div>
-            {% endfor %}
-        </div>
+          </div>
         {% endfor %}
 
       </div>

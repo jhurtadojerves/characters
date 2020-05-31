@@ -16,6 +16,7 @@ import requests
 # Local imports
 from apps.characters.models import Character
 from apps.characters.forms import CharacterForm
+from apps.achievements.models import Achievement, Road
 from utils.is_staff import IsStaff
 
 
@@ -40,6 +41,17 @@ class CharacterList(TemplateView):
 class CharacterDetail(DetailView):
     model = Character
     template_name = "characters/detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        roads = Road.objects.all()
+        order_achievements = dict()
+        for road in roads:
+            order_achievements[road.name] = Achievement.objects.filter(
+                road=road
+            ).order_by("points")
+        context.update({"achievements": order_achievements})
+        return context
 
 
 class CharacterCreate(IsStaff, CreateView):

@@ -70,15 +70,6 @@ class Character(models.Model):
     def __str__(self):
         return f"{self.nick}"
 
-    def get_order_achievements(self):
-        roads = Road.objects.all()
-        order_achievements = dict()
-        for road in roads:
-            order_achievements[road.name] = self.achievements.filter(
-                road=road
-            ).order_by("points")
-        return order_achievements
-
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nick)
         super().save(*args, **kwargs)
