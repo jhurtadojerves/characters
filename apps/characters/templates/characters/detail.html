@@ -136,7 +136,7 @@
                 {% for achievement in values %}
                 <div class="col-4 text-center">
                   {% icon character achievement as selected_icon %}
-                  <img src="{{ selected_icon.url }}" class="rounded" alt="...">
+                  <img src="{{ achievement.icon_principal.url }}" class="rounded" style="{{ selected_icon.css }}" title="{{ selected_icon.legend }}" alt="{{ achievement.name }}">
                   <p>
                     <i>{{ achievement.name }}</i> <br />
                     Al acumular {{ achievement.points }} puntos
