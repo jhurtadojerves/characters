@@ -64,7 +64,7 @@ class Character(models.Model):
     slug = models.SlugField(max_length=140, editable=False)
 
     achievements = models.ManyToManyField(
-        Achievement, related_name="characters", blank=True, null=True
+        Achievement, related_name="characters", blank=True
     )
 
     def __str__(self):

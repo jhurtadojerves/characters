@@ -12,6 +12,7 @@ class CharacterAdmin(ImportExportModelAdmin):
     list_display = "name", "nick", "range", "user"
     list_editable = ("user",)
     filter_horizontal = ("achievements", "business")
+    search_fields = ("name", "nick", "user")
 
 
 admin.site.register(Character, CharacterAdmin)
