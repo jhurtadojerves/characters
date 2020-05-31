@@ -42,6 +42,7 @@ class Point(models.Model):
     character = models.ForeignKey(
         "characters.Character", related_name="points", on_delete=models.CASCADE
     )
+    reason = models.CharField(max_length=256)
     road = models.ForeignKey(Road, related_name="points", on_delete=models.CASCADE)
 
 

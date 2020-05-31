@@ -124,6 +124,27 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <h3 class="text-center">Logros del Usuario</h3>
+        <hr>
+        {% for key, values in character.get_order_achievements.items %}
+          <div class="col-12">
+          <h4 class="text-center">{{ key }}</h4>
+            {% for value in values %}
+              <div class="text-center">
+                <img src="{{ value.icon_principal.url }}" class="rounded" alt="...">
+                <p>
+                  <i>{{ value.name }}</i> <br />
+                  Al acumular {{ value.points }} puntos
+                </p>
+              </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
     {% if request.user.is_staff %}
     <div class="row">
       <div class="col-12">
