@@ -13,4 +13,4 @@ def icon(character, achievement):
     filtered_achievement = character.achievements.filter(pk=achievement.pk)
     if filtered_achievement.exists():
         return {"css": "", "legend": "Obtenido"}
-    return {"css": "filter:grayscale(100%);", "legend": "No obtenido"}
+    return {"css": "opacity:25%;", "legend": "No obtenido"}
