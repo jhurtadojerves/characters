@@ -1,22 +1,13 @@
 {% load characters %}
 <textarea id="bbcode" style="display: none;">
-  [fimg=left]{{ character.avatar.url }}[/fimg]
+  [fimg=left]{{ request.scheme }}://{{ request.get_host }}{{ character.avatar.url }}[/fimg]
 [center][color=#daa520][size=6][font='times new roman', times, serif][b]{{ character.name }}[/b][/font][/size][/color][/center]
 
 
-[justify][size=5][color=#daa520][font=verdana]Rango en el Bando:[/font][/color][/size] {{ character.get_range_display }}
-
-
-[font=verdana, geneva, sans-serif][size=5][color=#daa520]Patronus:[/color][/size][/font] {{ character.patronus }}
-
-
-[font=verdana, geneva, sans-serif][size=5][color=#daa520]Varita Mágica:[/color][/size][/font] {{ character.wand }}
-
-
-[font=verdana, geneva, sans-serif][size=5][color=#daa520]Empleo en la CMI:[/color][/size][/font] {{ character.job }}
-
-
-[font=verdana, geneva, sans-serif][size=5][color=#daa520]Características del Personaje:[/color][/size][/font] {{ character.characteristics }}[/justify]
+[justify][size=5][color=#daa520][font=verdana]Rango en el Bando:[/font][/color][/size] {{ character.get_range_display }}[font=verdana, geneva, sans-serif][size=5][color=#daa520]Patronus:[/color][/size][/font] {{ character.patronus|safe }}
+[font=verdana, geneva, sans-serif][size=5][color=#daa520]Varita Mágica:[/color][/size][/font] {{ character.wand|safe }}
+[font=verdana, geneva, sans-serif][size=5][color=#daa520]Empleo en la CMI:[/color][/size][/font] {{ character.job|safe }}
+[font=verdana, geneva, sans-serif][size=5][color=#daa520]Características del Personaje:[/color][/size][/font] {{ character.characteristics|safe }}[/justify]
 
 
 
@@ -26,10 +17,7 @@
   [color=#daa520][font='times new roman', times, serif][b]MEDALLAS POR {{ key|upper}}[/b][/font][/color]
 
 
-  {% for achievement in values %}
-    {% icon_bbcode character achievement as selected_icon_bbcode %}
-    [timg={{ achievement.name }}]{{ selected_icon_bbcode.url }}[/timg]
-  {% endfor %}
+  {% for achievement in values %}{% icon_bbcode character achievement as selected_icon_bbcode %}[timg={{ achievement.name }}]{{ request.scheme }}://{{ request.get_host }}{{ selected_icon_bbcode.url }}[/timg]{% endfor %}
   Puntos: 0
 
 
@@ -44,6 +32,12 @@
         const bbcode_copy = document.getElementById("bbcode_copy")
         bbcode_copy.addEventListener("click", event => {
           event.preventDefault()
+          let content = bbcode.value
+          content = content.replace("<p>", "")
+          content = content.replace("</p>", "")
+          content = content.replace('<p style="text-align:justify">', "")
+          bbcode.value = content
+          console.log(bbcode.value)
           bbcode.style.display = "block";
           bbcode.select();
           bbcode.setSelectionRange(0, 99999); /*For mobile devices*/
