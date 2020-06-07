@@ -61,7 +61,7 @@ def calculate_achievements(sender, instance, created, **kwargs):
     user_achievements = []
     user_achievements_all = instance.character.achievements.all()
     if user_achievements_all.exists():
-        user_achievements = user_achievements_all.values_list("pk").get()
+        user_achievements = list(user_achievements_all.values_list("pk", flat=True))
     achievements = Achievement.objects.filter(
         road=instance.road, points__lte=user_points["quantity__sum"],
     ).exclude(id__in=user_achievements,)
