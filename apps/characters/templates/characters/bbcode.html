@@ -2,29 +2,38 @@
 <textarea id="bbcode" style="display: none;">
   [fimg=left]{{ character.avatar.url }}[/fimg]
 [center][color=#daa520][size=6][font='times new roman', times, serif][b]{{ character.name }}[/b][/font][/size][/color][/center]
-  <br><br>
+
+
 [justify][size=5][color=#daa520][font=verdana]Rango en el Bando:[/font][/color][/size] {{ character.get_range_display }}
-  <br><br>
+
+
 [font=verdana, geneva, sans-serif][size=5][color=#daa520]Patronus:[/color][/size][/font] {{ character.patronus }}
-  <br><br>
+
+
 [font=verdana, geneva, sans-serif][size=5][color=#daa520]Varita Mágica:[/color][/size][/font] {{ character.wand }}
-  <br><br>
+
+
 [font=verdana, geneva, sans-serif][size=5][color=#daa520]Empleo en la CMI:[/color][/size][/font] {{ character.job }}
-  <br><br>
+
+
 [font=verdana, geneva, sans-serif][size=5][color=#daa520]Características del Personaje:[/color][/size][/font] {{ character.characteristics }}[/justify]
-  <br><br>
+
+
 
 [center][b][size=6][font='times new roman', times, serif][color=#daa520]LOGROS[/color][/font][/size][/b][/center]
 
 {% for key, values in achievements.items %}
   [color=#daa520][font='times new roman', times, serif][b]MEDALLAS POR {{ key|upper}}[/b][/font][/color]
-  <br><br>
+
+
   {% for achievement in values %}
     {% icon_bbcode character achievement as selected_icon_bbcode %}
     [timg={{ achievement.name }}]{{ selected_icon_bbcode.url }}[/timg]
   {% endfor %}
   Puntos: 0
-  <br><br><br>
+
+
+
 {% endfor %}
 
 [color=#daa520][font='times new roman', times, serif][b]LOGROS TOTALES: [size=6][color=#daa520]0[/color][/size] PUNTOS[/b][/font][/color]
