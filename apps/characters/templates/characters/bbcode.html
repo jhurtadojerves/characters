@@ -4,9 +4,14 @@
 [center][color=#daa520][size=6][font='times new roman', times, serif][b]{{ character.name }}[/b][/font][/size][/color][/center]
 
 
-[justify][size=5][color=#daa520][font=verdana]Rango en el Bando:[/font][/color][/size] {{ character.get_range_display }}[font=verdana, geneva, sans-serif][size=5][color=#daa520]Patronus:[/color][/size][/font] {{ character.patronus|safe }}
+[justify][size=5][color=#daa520][font=verdana]Rango en el Bando:[/font][/color][/size] {{ character.get_range_display }}
+
+[font=verdana, geneva, sans-serif][size=5][color=#daa520]Patronus:[/color][/size][/font] {{ character.patronus|safe }}
+
 [font=verdana, geneva, sans-serif][size=5][color=#daa520]Varita Mágica:[/color][/size][/font] {{ character.wand|safe }}
+
 [font=verdana, geneva, sans-serif][size=5][color=#daa520]Empleo en la CMI:[/color][/size][/font] {{ character.job|safe }}
+
 [font=verdana, geneva, sans-serif][size=5][color=#daa520]Características del Personaje:[/color][/size][/font] {{ character.characteristics|safe }}[/justify]
 
 
