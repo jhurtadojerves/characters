@@ -2,7 +2,10 @@
 
 # Django
 from django import template
+from django.db.models import Sum
 
+# Local
+from apps.achievements.models import Point, Road
 
 register = template.Library()
 
@@ -23,3 +26,14 @@ def icon_bbcode(character, achievement):
     if filtered_achievement.exists():
         return {"url": achievement.icon_principal.url, "legend": "Obtenido"}
     return {"url": achievement.icon_secondary.url, "legend": "No obtenido"}
+
+
+@register.simple_tag
+def road_point(character, road):
+    get_road = Road.objects.get(name=road)
+    points = Point.objects.filter(character=character, road=get_road).aggregate(
+        Sum("quantity")
+    )["quantity__sum"]
+    if not points:
+        return "0"
+    return points

@@ -23,13 +23,13 @@
 
 
   {% for achievement in values %}{% icon_bbcode character achievement as selected_icon_bbcode %}[timg={{ achievement.name }}]{{ request.scheme }}://{{ request.get_host }}{{ selected_icon_bbcode.url }}[/timg]{% endfor %}
-  Puntos: 0
+  Puntos: {% road_point character key as points %} {{points}}
 
 
 
 {% endfor %}
 
-[color=#daa520][font='times new roman', times, serif][b]LOGROS TOTALES: [size=6][color=#daa520]0[/color][/size] PUNTOS[/b][/font][/color]
+[color=#daa520][font='times new roman', times, serif][b]LOGROS TOTALES: [size=6][color=#daa520]{{ character.get_all_points }}[/color][/size] PUNTOS[/b][/font][/color]
 
 </textarea>
 <script>

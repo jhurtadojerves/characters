@@ -1,5 +1,6 @@
 # Core imports
 from django.db import models
+from django.db.models import Sum
 from django.utils.text import slugify
 
 # Third Party Integration
@@ -8,7 +9,7 @@ from ckeditor.fields import RichTextField
 
 # Local
 from apps.business.models import Business
-from apps.achievements.models import Achievement, Road
+from apps.achievements.models import Achievement, Point
 
 
 class Character(models.Model):
@@ -66,6 +67,14 @@ class Character(models.Model):
     achievements = models.ManyToManyField(
         Achievement, related_name="characters", blank=True
     )
+
+    def get_all_points(self):
+        points = Point.objects.filter(character=self).aggregate(Sum("quantity"))[
+            "quantity__sum"
+        ]
+        if not points:
+            return "0"
+        return points
 
     def __str__(self):
         return f"{self.nick}"
