@@ -18,7 +18,7 @@ class AchievementAdmin(admin.ModelAdmin):
 
 
 class PointAdmin(admin.ModelAdmin):
-    list_display = ("quantity", "character", "road")
+    list_display = ("quantity", "character", "road", "reason")
     autocomplete_fields = ("character", "road")
 
 
