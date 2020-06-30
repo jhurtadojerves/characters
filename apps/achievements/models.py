@@ -50,6 +50,7 @@ class Point(models.Model):
         "characters.Character", related_name="points", on_delete=models.CASCADE
     )
     reason = models.CharField(max_length=256)
+    creation_date = models.DateField()
     road = models.ForeignKey(Road, related_name="points", on_delete=models.CASCADE)
 
 
