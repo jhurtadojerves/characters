@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block app_breadcrumb %}
+  <li class="breadcrumb-item active" aria-current="page">Logros</li>
+{% endblock %}
+
+{% block content %}
+<div class="row m-4 pt-4">
+  <div class="col">
+    <a href="{% url 'Achievement:year_list' year %}junio/">Junio</a> <br />
+    <a href="{% url 'Achievement:year_list' year %}julio/">Julio</a> <br />
+    <a href="{% url 'Achievement:year_list' year %}agosto/">Agosto</a> <br />
+    <a href="{% url 'Achievement:year_list' year %}septiembre/">Septiembre</a> <br />
+    <a href="{% url 'Achievement:year_list' year %}octubre/">Octubre</a> <br />
+    <a href="{% url 'Achievement:year_list' year %}noviembre/">Noviembre</a> <br />
+    <a href="{% url 'Achievement:year_list' year %}diciembre/">Diciembre</a>
+  </div>
+</div>
+{% endblock content %}
+
+{% block css %}
+<style>
+  .characters-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-gap: .5em;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  .characters-item {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+  }
+
+  .badge-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0;
+  }
+
+</style>
+{% endblock %}

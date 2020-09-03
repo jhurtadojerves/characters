@@ -26,6 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", RedirectView.as_view(url="/personaje/")),
     path("personaje/", include("apps.characters.urls")),
+    path("logros/", include("apps.achievements.urls")),
     path("awards/", include("apps.awards.urls")),
     path("negocio/", include("apps.business.urls")),
     path("obtener-datos/", view=GetProfileInformation.as_view(), name="getData"),

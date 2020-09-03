@@ -2,7 +2,7 @@
 
 # Third party integration
 
-from rest_framework import viewsets, permissions, mixins
+from rest_framework import viewsets, permissions, mixins, filters
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 
@@ -17,3 +17,7 @@ class CharacterViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     serializer_class = CharacterSerializer
     queryset = Character.objects.filter(active=True)
     lookup_field = "slug"
+    search_fields = [
+        "patronus",
+    ]
+    filter_backends = (filters.SearchFilter,)
