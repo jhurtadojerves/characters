@@ -7,85 +7,96 @@
 
 {% block content %}
 <div class="container-fluid">
-  <div class="row pt-2">
-    <div class="col">
-      <h4 class="text-center m-auto">{{ category.name }} - {{ category.award }}</h4>
-      <hr>
-      {% if not winners %}
-      <h5 class="text-center m-auto mb-4">Participantes</h5>
-      {% endif %}
-      <br><br>
+    <div class="row pt-2">
+        <div class="col">
+            <h4 class="text-center m-auto">{{ category.name }} - {{ category.award }}</h4>
+            <hr>
+            {% if not winners %}
+            <h5 class="text-center m-auto mb-4">Participantes</h5>
+            {% endif %}
+            <br><br>
+        </div>
     </div>
-  </div>
-  {% if winners %}
-  <div class="row">
-    <div class="col">
-      {% if category.number_of_winners == 1 %}
-      <h5 class="text-center m-auto mb-5">La persona ganadora es: </h5>
-      {% else %}
-      <h5 class="text-center m-auto mb-5">Las personas que clasficican a la siguiente etapa son: </h5>
-
-      {% endif %}
+    {% if winners %}
+    <div class="row">
+        <div class="col">
+            {% if category.number_of_winners == 1 %}
+            <h5 class="text-center m-auto mb-5">La persona ganadora es: </h5>
+            {% else %}
+            <h5 class="text-center m-auto mb-5">Las personas que clasficican a la siguiente etapa son: </h5>
+            {% endif %}
+        </div>
     </div>
-  </div>
-  {% else %}
-  {% if not category.award.opened%}
-  <div class="row">
-    <div class="col">
-      <h5 class="text-center m-auto mb-5">{{ category.award.name }} está cerrado</h5>
-      <p class="mt-3 text-center">Pronto podrás votar por tus favoritos ¡Alerta Permanente!</p>
+    {% else %}
+    {% if not category.award.opened%}
+    <div class="row">
+        <div class="col">
+            <h5 class="text-center m-auto mb-5">{{ category.award.name }} está cerrado</h5>
+            <p class="mt-3 text-center">Pronto podrás votar por tus favoritos ¡Alerta Permanente!</p>
+        </div>
     </div>
-  </div>
-  {% elif not user.is_authenticated %}
-  <div class="row">
-    <div class="col">
-      <h5 class="text-center m-auto mb-5">Para votar debes estar autenticado</h5>
-      <p class="mt-3">Puedes solicitar un usuario visitando este <a href="http://www.harrylatino.org/topic/114767-gestion-de-usuarios-y-votaciones/" target="_blank">topic</a> </p>
+    {% elif not user.is_authenticated %}
+    <div class="row">
+        <div class="col">
+            <h5 class="text-center m-auto mb-5">Para votar debes estar autenticado</h5>
+            <p class="mt-3">Puedes solicitar un usuario visitando este <a
+                href="http://www.harrylatino.org/topic/114767-gestion-de-usuarios-y-votaciones/"
+                target="_blank">topic</a></p>
+        </div>
     </div>
-  </div>
-  {% elif not voting %}
-  <div class="row">
-    <div class="col">
-      <h5 class="text-center m-auto mb-5">Selecciona {{ category.max_options }} opcion/es</h5>
-      <form action="" method="POST" class="uniForm">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-success mt-5">Votar</button>
-      </form>
+    {% elif not voting %}
+    <div class="row">
+        <div class="col">
+            <h5 class="text-center m-auto mb-5">Selecciona {{ category.max_options }} opcion/es</h5>
+            <form action="" method="POST" class="uniForm">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success mt-5">Votar</button>
+            </form>
+        </div>
     </div>
-  </div>
-  {% else %}
-  <div class="row">
-    <div class="col">
-      <h5 class="text-center m-auto mb-5">Votaste por:</h5>
-      <ul>
-        {% for option in options %}
-        <li>{{ option.name }}</li>
-        {% endfor %}
-      </ul>
+    {% else %}
+    <div class="row">
+        <div class="col">
+            <h5 class="text-center m-auto mb-5">Votaste por:</h5>
+            <ul>
+                {% for option in options %}
+                <li>{{ option.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-  </div>
-  {% endif %}
-  {% endif %}
-
-
-  <div class="row mb-5 mt-5">
-    <div class="col">
-      <ul class="nominees-list">
-        {% if winners %}
-          {% if category.show_winners or request.user.is_staff %}
-          {% for winner in winners %}
-            <li class="list-group-item nominees-items">{{ winner }}: {{winner.number_of_votes}}</li>
-          {% endfor %}
-          {% endif %}
-        {% else %}
-        {% for user in category.participants.all|dictsort:'nick' %}
-        <li class="list-group-item nominees-items">{{user.nick}}</li>
-        {% endfor %}
-        {% endif %}
-      </ul>
+    {% endif %}
+    {% endif %}
+    <div class="row mb-5 mt-5">
+        <div class="col">
+            <ul class="nominees-list">
+                {% if winners %}
+                {% if category.show_winners or request.user.is_staff %}
+                {% for winner in winners %}
+                <li class="list-group-item nominees-items">{{ winner }}: {{winner.number_of_votes}}</li>
+                {% endfor %}
+                {% endif %}
+                {% else %}
+                {% for user in category.participants.all|dictsort:'nick' %}
+                <li class="list-group-item nominees-items">{{user.nick}}</li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
     </div>
-  </div>
+    {% if request.user.is_superuser %}
+    <div class="row">
+        <div class="col">
+            GANADORES
+            {% for character in category.get_votes %}
+                <p>
+                    <b>{{ character.character }}: </b> {{ character.number_of_votes }}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
 

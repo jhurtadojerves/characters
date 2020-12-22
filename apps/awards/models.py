@@ -54,6 +54,27 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_votes(self):
+        voting = None
+        if self.votes.all():
+            voting = (
+                self.votes.all()
+                .values("selected_options")
+                .annotate(number_of_votes=models.Count("selected_options"))
+                .filter(number_of_votes__gt=0)
+                .order_by("-number_of_votes")
+            )
+            for character in voting:
+                character.update(
+                    {
+                        "character": Character.objects.get(
+                            pk=character["selected_options"]
+                        )
+                    }
+                )
+                del character["selected_options"]
+        return voting
+
     def calculate_winners(self):
         voting = None
         if self.votes.all():
