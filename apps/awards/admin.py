@@ -7,6 +7,9 @@ from django.utils.html import format_html
 # Local
 from .models import Award, Category, AccessToken, Voting, Winner
 
+# Third party integration
+from import_export.admin import ImportExportModelAdmin
+
 
 class AwardAdmin(admin.ModelAdmin):
     """Config Admin from Award Model"""
@@ -66,7 +69,7 @@ class AwardAdmin(admin.ModelAdmin):
                 return False
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(ImportExportModelAdmin):
     """"""
 
     list_display = (
