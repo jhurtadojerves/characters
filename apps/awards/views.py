@@ -20,9 +20,6 @@ class AwardListView(ListView):
     model = Award
     context_object_name = "awards"
 
-    def get_queryset(self):
-        return self.model.objects.filter(opened=True)
-
 
 class AwardDetailView(DetailView):
     """Award detail view"""
