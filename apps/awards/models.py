@@ -28,6 +28,9 @@ class Award(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ("-pk",)
+
 
 class Category(models.Model):
     """Define all categories of award"""
