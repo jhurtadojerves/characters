@@ -93,7 +93,19 @@ class CategoryAdmin(ImportExportModelAdmin):
     )
     filter_horizontal = ("participants", "winners")
     list_filter = ("award",)
-    actions = ("define_winners",)
+    actions = ("define_winners", "show_winners")
+
+    def show_winners(self, request, queryset):
+        with transaction.atomic():
+            try:
+                for instance in queryset:
+                    instance.show_winners = True
+                    instance.save()
+            except Exception as e:
+                messages.error(
+                    request, e.__str__(),
+                )
+                transaction.set_rollback(True)
 
     def define_winners(self, request, queryset):
         """"""
