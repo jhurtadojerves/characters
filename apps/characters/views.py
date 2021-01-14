@@ -8,6 +8,7 @@ from django.views.generic import (
     DetailView,
     TemplateView,
 )
+from django.http import Http404
 
 # Third party integration
 from bs4 import BeautifulSoup
@@ -25,7 +26,7 @@ class CharacterList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        characters = Character.objects.all()
+        characters = Character.objects.exclude(active=False)
         context["lideres"] = characters.filter(
             Q(range=6) | Q(is_lieutenant=True)
         ).order_by("-range")
@@ -52,6 +53,12 @@ class CharacterDetail(DetailView):
             ).order_by("points")
         context.update({"achievements": order_achievements})
         return context
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if not self.object.active and not request.user.is_staff:
+            raise Http404("El personaje no existe")
+        return super(CharacterDetail, self).get(request)
 
 
 class CharacterCreate(IsStaff, CreateView):
