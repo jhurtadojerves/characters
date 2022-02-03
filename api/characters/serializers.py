@@ -46,6 +46,5 @@ class CharacterSerializer(HyperlinkedModelSerializer):
             "character_card",
             "vault",
             "storage_vault",
-            "business",
             "slug",
         )

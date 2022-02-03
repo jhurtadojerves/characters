@@ -17,7 +17,5 @@ class CharacterViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     serializer_class = CharacterSerializer
     queryset = Character.objects.filter(active=True)
     lookup_field = "slug"
-    search_fields = [
-        "patronus",
-    ]
+    search_fields = ["patronus", "name", "nick", "user"]
     filter_backends = (filters.SearchFilter,)
