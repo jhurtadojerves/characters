@@ -85,22 +85,19 @@ class GetProfileInformation(TemplateView):
     """Get profile information"""
 
     def get(self, request, *args, **kwargs):
-        url = f"http://www.harrylatino.org/user/{request.GET.get('id')}-/"
+        url = f"http://www.harrylatino.org/user/{request.GET.get('id')}-xxx/"
         response = requests.get(url, allow_redirects=True)
         if response.status_code == 301:
             url = ((response.headers["Refresh"]).split(";")[1]).replace("url=", "")
             response = requests.get(url, allow_redirects=True)
-        output = dict()
+        output = dict({"message": "Se produjo un error :c"})
         if response.status_code == 200:
             html = BeautifulSoup(response.text)
-            data = html.select("#custom_fields_personaje ul li .row_data")
-            labels = html.select("#custom_fields_personaje ul li .row_title")
-            messages = 0
-            messages_data = html.select(".general_box ul li .row_data")
-            messages_label = html.select(".general_box ul li .row_title")
-            for i in range(len(messages_data)):
-                if messages_label[i].text.strip() == "Mensajes activos":
-                    messages = int(str(messages_data[i].text.strip()).replace(".", ""))
+            data = html.select("ul.cProfileFields > li.ipsType_break > div.ipsDataItem_generic > div.ipsContained")
+            labels = html.select("ul.cProfileFields > li.ipsType_break > span.ipsType_break")
+
+            messages_data = html.select("#elProfileStats > ul.ipsPos_left > li")
+            messages = (messages_data[0].text.replace("Mensajes", "").strip().replace(".", ""))
             graduate = ""
             current_level = 0
             galleons = 0
@@ -111,8 +108,8 @@ class GetProfileInformation(TemplateView):
             skills = ""
             badges = 0
             team = ""
-            current_team_range = "No perteneces a ningún bando"
-            calculated_team_range = "No perteneces a ningún bando"
+            dungeons = 0
+            fabrication = 0
 
             for i in range(len(data)):
                 if labels[i].text.strip() == "Nivel Mágico":
@@ -135,6 +132,11 @@ class GetProfileInformation(TemplateView):
                     badges = int(data[i].text.strip())
                 if labels[i].text.strip() == "Bando":
                     team = data[i].text.strip()
+                if labels[i].text.strip() == "Puntos en Mazmorras":
+                    dungeons = data[i].text.strip()
+                if labels[i].text.strip() == "Puntos de Fabricación":
+                    fabrication = data[i].text.strip()
+
             number_of_knowledge = 0 if knowledge == "" else len(knowledge.split("\n"))
             number_of_skills = 0 if skills == "" else len(skills.split("\n"))
             output.update(
@@ -149,7 +151,10 @@ class GetProfileInformation(TemplateView):
                     "medals": badges,
                     "skills": number_of_skills,
                     "team": team,
+                    "dungeons": dungeons,
+                    "fabrication": fabrication,
                     "current_level": current_level,
+                    "message": "Datos obtenidos correctamente:D"
                 }
             )
-            return JsonResponse(output)
+        return JsonResponse(output, status=response.status_code)
