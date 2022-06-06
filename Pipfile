@@ -21,6 +21,8 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 django-import-export = "*"
+psycopg2 = "*"
+gunicorn = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
