@@ -23,6 +23,7 @@ django-filter = "*"
 django-import-export = "*"
 psycopg2 = "*"
 gunicorn = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"
