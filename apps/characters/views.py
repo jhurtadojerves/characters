@@ -87,15 +87,17 @@ class GetProfileInformation(TemplateView):
     def get(self, request, *args, **kwargs):
         url = f"http://www.harrylatino.org/user/{request.GET.get('id')}-xxx/"
         response = requests.get(url, allow_redirects=True)
+        output = dict({"message": "Se produjo un error :c"})
+
         if response.status_code == 301:
             url = ((response.headers["Refresh"]).split(";")[1]).replace("url=", "")
             response = requests.get(url, allow_redirects=True)
-        output = dict({"message": "Se produjo un error :c"})
+
         if response.status_code == 200:
             html = BeautifulSoup(response.text)
             data = html.select("ul.cProfileFields > li.ipsType_break > div.ipsDataItem_generic > div.ipsContained")
             labels = html.select("ul.cProfileFields > li.ipsType_break > span.ipsType_break")
-
+            nick_name = str(html.select('title')[0].text).split("-")[0].strip()
             messages_data = html.select("#elProfileStats > ul.ipsPos_left > li")
             messages = (messages_data[0].text.replace("Mensajes", "").strip().replace(".", ""))
             graduate = ""
@@ -154,7 +156,9 @@ class GetProfileInformation(TemplateView):
                     "dungeons": dungeons,
                     "fabrication": fabrication,
                     "current_level": current_level,
+                    "nick": nick_name,
                     "message": "Datos obtenidos correctamente:D"
                 }
             )
+
         return JsonResponse(output, status=response.status_code)
